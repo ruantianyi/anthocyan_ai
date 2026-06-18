@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniBot V6.0: Ultimate Dynamic AI Synthesis</title>
+    <title>OmniBot V6.1 Workspace</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
             svg: { fontCache: 'global' }
         };
     </script>
@@ -48,71 +48,27 @@
         }
     </style>
     <style>
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #334155;
-            border-radius: 20px;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #334155; border-radius: 20px; }
     </style>
     <style id="light-mode-styles">
-        body.light-mode {
-            background: #f8fafc;
-            color: #0f172a;
-        }
-
-        body.light-mode .bg-slate-950 {
-            background-color: #ffffff;
-        }
-
-        body.light-mode .bg-slate-900 {
-            background-color: #f1f5f9;
-        }
-
-        body.light-mode .bg-slate-850 {
-            background-color: #e2e8f0;
-        }
-
-        body.light-mode .bg-slate-800 {
-            background-color: #cbd5e1;
-        }
-
-        body.light-mode .border-slate-800 {
-            border-color: #cbd5e1;
-        }
-
-        body.light-mode .text-slate-100,
+        body.light-mode { background: #f8fafc; color: #0f172a; }
+        body.light-mode .bg-slate-950 { background-color: #ffffff; }
+        body.light-mode .bg-slate-900 { background-color: #f1f5f9; }
+        body.light-mode .bg-slate-850 { background-color: #e2e8f0; }
+        body.light-mode .bg-slate-800 { background-color: #cbd5e1; }
+        body.light-mode .border-slate-800 { border-color: #cbd5e1; }
+        body.light-mode .text-slate-100, 
         body.light-mode .text-slate-200,
-        body.light-mode .text-slate-300 {
-            color: #1e293b;
-        }
-
-        body.light-mode .text-slate-400 {
-            color: #475569;
-        }
-
-        body.light-mode .from-slate-950 {
-            --tw-gradient-from: #ffffff var(--tw-gradient-from-position);
-        }
-
-        body.light-mode .from-slate-900 {
-            --tw-gradient-from: #f1f5f9 var(--tw-gradient-from-position);
-        }
-
-        body.light-mode .via-slate-900 {
-            --tw-gradient-via: #f1f5f9 var(--tw-gradient-via-position);
-        }
-
-        body.light-mode .placeholder\:text-slate-600::placeholder {
-            color: #94a3b8;
-        }
+        body.light-mode .text-slate-300 { color: #1e293b; }
+        body.light-mode .text-slate-400 { color: #475569; }
+        body.light-mode .from-slate-950 { --tw-gradient-from: #ffffff var(--tw-gradient-from-position); }
+        body.light-mode .from-slate-900 { --tw-gradient-from: #f1f5f9 var(--tw-gradient-from-position); }
+        body.light-mode .via-slate-900 { --tw-gradient-via: #f1f5f9 var(--tw-gradient-via-position); }
+        body.light-mode .placeholder\:text-slate-600::placeholder { color: #94a3b8; }
     </style>
+    <script src="https://unpkg.com/compromise"></script>
 </head>
 
 <body
@@ -124,12 +80,8 @@
             <button onclick="toggleSettings()"
                 class="absolute top-4 right-4 text-slate-300 hover:text-white transition"><i
                     class="fa-solid fa-xmark text-lg"></i></button>
-            <h2 class="text-xl font-bold text-white mb-1"><i class="fa-solid fa-gear text-indigo-400 mr-2"></i>Omnibot
-                Settings</h2>
-            <p class="text-xs text-slate-300 mb-6">Enter your API key below. Keys are stored safely and locally in your
-                browser's secure sandbox environment and are never transmitted to our servers. You can easily download
-                or export backup session files using the workspace tools at any time.
-            </p>
+            <h2 class="text-xl font-bold text-white mb-1"><i class="fa-solid fa-gear text-indigo-400 mr-2"></i>Omnibot Settings</h2>
+            <p class="text-xs text-slate-300 mb-6">Configure your Omnibot workspace preferences, engine parameters, and API connections.</p>
 
             <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
                 <div>
@@ -145,69 +97,53 @@
                 <div>
                     <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">API
                         Key</label>
+                    <p class="text-[10px] text-slate-400 mb-2">Keys are stored safely and locally in your browser's secure sandbox environment and are never transmitted to our servers. You can easily download or export backup session files using the workspace tools at any time.</p>
                     <input type="password" id="api-key-input" placeholder="sk-..."
                         class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-indigo-500 text-slate-100 placeholder:text-slate-600 transition duration-150">
                 </div>
-
+                
                 <hr class="border-slate-800 my-4">
-                <h3 class="text-sm font-bold text-white mb-2"><i
-                        class="fa-solid fa-sliders text-indigo-400 mr-2"></i>Advanced Configuration</h3>
-
+                <h3 class="text-sm font-bold text-white mb-2"><i class="fa-solid fa-sliders text-indigo-400 mr-2"></i>Advanced Configuration</h3>
+                
                 <div class="flex items-center justify-between">
                     <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Light Mode</label>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="light-mode-toggle" class="sr-only peer" onchange="toggleLightMode()">
-                        <div
-                            class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500">
-                        </div>
+                        <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
                     </label>
                 </div>
-
+                
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">System
-                        Prompt Override</label>
-                    <textarea id="settings-sys-prompt" rows="2" placeholder="Leave blank for default..."
-                        class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-100 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">System Prompt Override</label>
+                    <textarea id="settings-sys-prompt" rows="2" placeholder="Leave blank for default..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-100 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
                 </div>
-
+                
                 <div>
-                    <label
-                        class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                    <label class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
                         <span>Temperature</span> <span id="temp-val">0.7</span>
                     </label>
-                    <input type="range" id="settings-temp" min="0" max="2" step="0.1" value="0.7"
-                        class="w-full accent-indigo-500"
-                        oninput="document.getElementById('temp-val').innerText = this.value">
+                    <input type="range" id="settings-temp" min="0" max="2" step="0.1" value="0.7" class="w-full accent-indigo-500" oninput="document.getElementById('temp-val').innerText = this.value">
                 </div>
-
+                
                 <div>
-                    <label
-                        class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                    <label class="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
                         <span>Context Window / Max Tokens</span> <span id="token-val">4096</span>
                     </label>
-                    <input type="range" id="settings-tokens" min="1024" max="128000" step="1024" value="4096"
-                        class="w-full accent-indigo-500"
-                        oninput="document.getElementById('token-val').innerText = this.value">
+                    <input type="range" id="settings-tokens" min="1024" max="128000" step="1024" value="4096" class="w-full accent-indigo-500" oninput="document.getElementById('token-val').innerText = this.value">
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Auto-Save
-                        History</label>
+                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Auto-Save History</label>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="autosave-toggle" class="sr-only peer" checked>
-                        <div
-                            class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500">
-                        </div>
+                        <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
                     </label>
                 </div>
                 <div class="flex items-center justify-between">
-                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Telemetry
-                        Opt-Out</label>
+                    <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Telemetry Opt-Out</label>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" id="telemetry-toggle" class="sr-only peer">
-                        <div
-                            class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-rose-500">
-                        </div>
+                        <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-rose-500"></div>
                     </label>
                 </div>
             </div>
@@ -233,7 +169,7 @@
                 <div class="flex items-center gap-2">
                     <span
                         class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">OMNIBOT
-                        V6.0</span>
+                        V6.1</span>
                     <span id="engine-mode-badge"
                         class="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 rounded-full border border-emerald-500/20 flex items-center gap-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Offline Mode
@@ -244,69 +180,60 @@
 
         <div class="relative flex items-center max-w-full">
             <button onclick="document.getElementById('top-nav-scroll').scrollBy({left: -200, behavior: 'smooth'})"
-                class="absolute left-0 z-10 w-8 h-full bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent flex items-center justify-start text-slate-400 hover:text-white transition rounded-l-xl opacity-0 hover:opacity-100 group-hover:opacity-100 px-2 lg:flex"
-                style="opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity=1"
-                onmouseout="this.style.opacity=0">
+                class="absolute left-0 z-10 w-8 h-full bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent flex items-center justify-start text-slate-400 hover:text-white transition rounded-l-xl opacity-0 hover:opacity-100 group-hover:opacity-100 px-2 lg:flex" style="opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
             <nav id="top-nav-scroll"
-                class="flex p-1 bg-slate-950/80 rounded-xl border border-slate-800/80 self-center lg:self-auto w-full lg:w-auto items-center justify-start gap-1 overflow-x-auto whitespace-nowrap flex-nowrap scroll-smooth"
-                style="-ms-overflow-style: none; scrollbar-width: none;">
-                <style>
-                    #top-nav-scroll::-webkit-scrollbar {
-                        display: none;
-                    }
-                </style>
-                <button onclick="switchTab('chat')" id="tab-btn-chat"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg transition-all duration-200 bg-indigo-600 text-white shadow-md shadow-indigo-500/10 shrink-0 font-bold">
-                    <i class="fa-regular fa-comment text-blue-300"></i> Chat Bot
-                </button>
-                <button onclick="switchTab('essay')" id="tab-btn-essay"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
-                    <i class="fa-solid fa-pen-nib text-violet-400"></i> Compose Engine
-                </button>
-                <button onclick="switchTab('humanizer')" id="tab-btn-humanizer"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
-                    <i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i> Rephraser
-                </button>
-                <button onclick="switchTab('solver')" id="tab-btn-solver"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
-                    <i class="fa-solid fa-calculator text-teal-400"></i> Physics & Math
-                </button>
-                <button onclick="switchTab('sandbox')" id="tab-btn-sandbox"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
-                    <i class="fa-solid fa-laptop-code text-emerald-400"></i> ML Sandbox
-                </button>
-                <button onclick="switchTab('game')" id="tab-btn-game"
-                    class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
-                    <i class="fa-solid fa-gamepad text-amber-400"></i> Game & Draw
-                </button>
+                class="flex p-1 bg-slate-950/80 rounded-xl border border-slate-800/80 self-center lg:self-auto w-full lg:w-auto items-center justify-start gap-1 overflow-x-auto whitespace-nowrap flex-nowrap scroll-smooth" style="-ms-overflow-style: none; scrollbar-width: none;">
+                <style>#top-nav-scroll::-webkit-scrollbar { display: none; }</style>
+            <button onclick="switchTab('chat')" id="tab-btn-chat"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg transition-all duration-200 bg-indigo-600 text-white shadow-md shadow-indigo-500/10 shrink-0 font-bold">
+                <i class="fa-regular fa-comment text-blue-300"></i> Chat Bot
+            </button>
+            <button onclick="switchTab('essay')" id="tab-btn-essay"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
+                <i class="fa-solid fa-pen-nib text-violet-400"></i> Compose Engine
+            </button>
+            <button onclick="switchTab('humanizer')" id="tab-btn-humanizer"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
+                <i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i> Rephraser
+            </button>
+            <button onclick="switchTab('solver')" id="tab-btn-solver"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
+                <i class="fa-solid fa-calculator text-teal-400"></i> Physics & Math
+            </button>
+            <button onclick="switchTab('sandbox')" id="tab-btn-sandbox"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
+                <i class="fa-solid fa-laptop-code text-emerald-400"></i> ML Sandbox
+            </button>
+            <button onclick="switchTab('game')" id="tab-btn-game"
+                class="tab-btn flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm font-semibold rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200 shrink-0 font-bold">
+                <i class="fa-solid fa-gamepad text-amber-400"></i> Game & Draw
+            </button>
 
-                <div class="w-px h-5 bg-slate-700/80 mx-1.5 shrink-0"></div>
+            <div class="w-px h-5 bg-slate-700/80 mx-1.5 shrink-0"></div>
 
-                <div class="flex items-center gap-1 shrink-0">
-                    <button onclick="document.getElementById('import-file').click()" title="Import Session Backup"
-                        class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-white transition">
-                        <i class="fa-solid fa-upload text-xs"></i> <span
-                            class="text-[10px] font-bold uppercase tracking-wider">Import</span>
-                    </button>
-                    <button onclick="exportHistory()" title="Export Session Backup"
-                        class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-white transition">
-                        <i class="fa-solid fa-download text-xs"></i> <span
-                            class="text-[10px] font-bold uppercase tracking-wider">Export</span>
-                    </button>
-                    <button onclick="toggleSettings()" title="Settings"
-                        class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-indigo-400 transition shrink-0">
-                        <i class="fa-solid fa-gear text-xs"></i> <span
-                            class="text-[10px] font-bold uppercase tracking-wider hidden md:block">Settings</span>
-                    </button>
-                </div>
-                <button onclick="document.getElementById('top-nav-scroll').scrollBy({left: 200, behavior: 'smooth'})"
-                    class="absolute right-0 z-10 w-8 h-full bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent flex items-center justify-end text-slate-400 hover:text-white transition rounded-r-xl opacity-0 hover:opacity-100 group-hover:opacity-100 px-2 lg:flex"
-                    style="opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity=1"
-                    onmouseout="this.style.opacity=0">
-                    <i class="fa-solid fa-chevron-right"></i>
+            <div class="flex items-center gap-1 shrink-0">
+                <button onclick="document.getElementById('import-file').click()" title="Import Session Backup"
+                    class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-upload text-xs"></i> <span
+                        class="text-[10px] font-bold uppercase tracking-wider">Import</span>
                 </button>
+                <button onclick="exportHistory()" title="Export Session Backup"
+                    class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-white transition">
+                    <i class="fa-solid fa-download text-xs"></i> <span
+                        class="text-[10px] font-bold uppercase tracking-wider">Export</span>
+                </button>
+                <button onclick="toggleSettings()" title="Settings"
+                    class="flex items-center gap-1.5 px-2 py-1.5 text-slate-400 hover:text-indigo-400 transition shrink-0">
+                    <i class="fa-solid fa-gear text-xs"></i> <span
+                        class="text-[10px] font-bold uppercase tracking-wider hidden md:block">Settings</span>
+                </button>
+            </div>
+            <button onclick="document.getElementById('top-nav-scroll').scrollBy({left: 200, behavior: 'smooth'})"
+                class="absolute right-0 z-10 w-8 h-full bg-gradient-to-l from-slate-900 via-slate-900/90 to-transparent flex items-center justify-end text-slate-400 hover:text-white transition rounded-r-xl opacity-0 hover:opacity-100 group-hover:opacity-100 px-2 lg:flex" style="opacity: 0; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
         </div>
         <input type="file" id="import-file" class="hidden" accept=".json" onchange="importHistory(event)">
     </header>
@@ -363,7 +290,7 @@
                             class="fa-solid fa-database text-indigo-400"></i> AI Memory Status</h4>
                     <div
                         class="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80 space-y-1.5 text-[11px] text-slate-400 font-mono">
-                        <div>Model: <span id="mem-model-type" class="text-indigo-300">V6.0 Synthesis Core</span></div>
+                        <div>Model: <span id="mem-model-type" class="text-indigo-300">V6.1 Synthesis Core</span></div>
                         <div>Extracted Topics: <span class="text-emerald-300">Active</span></div>
                         <div>Dictionary Keys: <span id="mem-word-count" class="text-indigo-300">Loading...</span></div>
                         <div>Markov Nodes: <span id="mem-markov-count" class="text-emerald-300">0 loaded</span></div>
@@ -395,7 +322,7 @@
                         </div>
                         <div
                             class="bg-slate-800/60 text-slate-200 p-3.5 rounded-2xl rounded-bl-none text-sm leading-relaxed border border-slate-800/40 shadow-inner">
-                            Welcome to the **OmniBot V6.0 Ultimate Synthesis Engine**! 🚀<br><br>I feature advanced
+                            Welcome to the **OmniBot V6.1 Ultimate Synthesis Engine**! 🚀<br><br>I feature advanced
                             persistent memory, a Math.js integration for true calculus and algebra, and smart Intent
                             Recognition. If you enter an API key via the settings gear above, I become fully live.
                             Otherwise, my massive offline Knowledge Graph handles everything.<br>
@@ -568,9 +495,7 @@
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer mt-1">
                             <input type="checkbox" id="humanize-toggle" class="sr-only peer" checked>
-                            <div
-                                class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-pink-500">
-                            </div>
+                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-pink-500"></div>
                             <span class="ml-2 text-[10px] font-bold text-slate-300 uppercase">Humanize</span>
                         </label>
                     </div>
@@ -794,8 +719,7 @@
                         <p class="text-[10px] text-slate-500 mt-1">Accepts raw text (.txt), Word docs (.docx),
                             coordinate tables (.csv), or structured JSON arrays</p>
                     </div>
-                    <div id="uploaded-files-list" class="space-y-1.5 mt-3 max-h-32 overflow-y-auto custom-scrollbar">
-                    </div>
+                    <div id="uploaded-files-list" class="space-y-1.5 mt-3 max-h-32 overflow-y-auto custom-scrollbar"></div>
                     <div class="space-y-2">
                         <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Inject
                             Synthesized Test Datasets</label>
@@ -831,8 +755,7 @@
                         </p>
                     </div>
                 </div>
-                <button
-                    onclick="if(confirm('Are you sure you want to flush all training weights and models?')) clearSandboxModels()"
+                <button onclick="if(confirm('Are you sure you want to flush all training weights and models?')) clearSandboxModels()"
                     class="w-full mt-4 py-2 border border-slate-800 hover:border-slate-700 bg-slate-950 text-xs text-slate-400 hover:text-rose-400 font-semibold rounded-lg transition">Flush
                     Training Weights</button>
             </div>
@@ -868,13 +791,10 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="p-4 bg-slate-950/80 border border-slate-800/60 rounded-xl flex flex-col justify-between">
+                    <div class="p-4 bg-slate-950/80 border border-slate-800/60 rounded-xl flex flex-col justify-between">
                         <div>
-                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Inject
-                                Data</span>
-                            <p class="text-xs text-slate-400 mt-2">Load a predefined sample dataset to test the linear
-                                regression plotting and stat generation.</p>
+                            <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Inject Data</span>
+                            <p class="text-xs text-slate-400 mt-2">Load a predefined sample dataset to test the linear regression plotting and stat generation.</p>
                         </div>
                         <button onclick="injectSampleRegressionDataset()"
                             class="w-full mt-3 py-2 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 text-[12px] border border-emerald-500/30 rounded-lg transition font-medium flex items-center justify-center gap-2"><i
@@ -1188,6 +1108,10 @@
             }
         }
 
+        function toggleLightMode() {
+            document.body.classList.toggle('light-mode');
+        }
+
         function saveSettings() {
             const inputKey = document.getElementById('api-key-input').value.trim();
             const inputProvider = document.getElementById('api-provider').value;
@@ -1195,9 +1119,19 @@
             localStorage.setItem('omni_api_provider', inputProvider);
             apiKey = inputKey;
             apiProvider = inputProvider;
+            
+            const isLightMode = document.getElementById('light-mode-toggle').checked;
+            localStorage.setItem('omni_light_mode', isLightMode);
+            
+            localStorage.setItem('omni_sys_prompt', document.getElementById('settings-sys-prompt').value);
+            localStorage.setItem('omni_temp', document.getElementById('settings-temp').value);
+            localStorage.setItem('omni_tokens', document.getElementById('settings-tokens').value);
+            localStorage.setItem('omni_autosave', document.getElementById('autosave-toggle').checked);
+            localStorage.setItem('omni_telemetry', document.getElementById('telemetry-toggle').checked);
+            
             toggleSettings();
             checkAPIConnection();
-            showToast("API Configuration Saved!");
+            showToast("Settings Saved!");
         }
 
         function clearAPIKey() {
@@ -2157,7 +2091,7 @@
                 `<p class="text-slate-300 mb-6 first-letter:text-6xl first-letter:font-extrabold first-letter:text-indigo-500 first-letter:mr-3 first-letter:float-left leading-relaxed text-md">A critical evaluation of the literature reveals a fundamental paradigm shift concerning {TOPIC}. Historically marginalized in classical models, the precise quantification of {TOPIC} is now considered central to predictive accuracy. By interrogating these new frameworks, analysts can isolate the core dependencies that dictate systemic stability.</p>`,
                 `<p class="text-slate-300 mb-6 first-letter:text-6xl first-letter:font-extrabold first-letter:text-indigo-500 first-letter:mr-3 first-letter:float-left leading-relaxed text-md">The intersection of theoretical abstraction and empirical validation is perhaps nowhere more visible than in the study of {TOPIC}. As institutional models adapt to unprecedented structural complexities, the rigorous study of {TOPIC} has emerged as an indispensable tool. This discourse maps out the historical trajectory and current impact of these pivotal developments.</p>`
             ];
-
+            
             const CONCLUSION_TEMPLATES = [
                 `<p class="text-slate-300 pt-6 mt-4 border-t border-slate-800 leading-relaxed text-md">In conclusion, this synthesized analysis demonstrates that {TOPIC} remains one of the most intellectually demanding subjects in contemporary academia. By balancing systemic models with persistent empirical oversight, future scholarship can securely navigate these complex uncertainties. Ultimately, continuous, collaborative evaluation is the only valid mechanism to ensure the structural integrity of this domain going forward.</p>`,
                 `<p class="text-slate-300 pt-6 mt-4 border-t border-slate-800 leading-relaxed text-md">Ultimately, the discourse surrounding {TOPIC} underscores a broader necessity for methodological agility. While early models provided foundational insights, the evolving nature of {TOPIC} demands constant analytical recalibration. Moving forward, the integration of new empirical datasets will be crucial for maintaining theoretical validity in this expansive arena.</p>`,
@@ -2223,7 +2157,7 @@
         function humanizeText(text, style = 'casual', allowHooks = true) {
             if (!text) return "";
             let paragraphs = text.split(/\n+/);
-
+            
             // Randomly split uneven paragraphs
             if (allowHooks && Math.random() < 0.4) {
                 let newParagraphs = [];
@@ -2242,7 +2176,7 @@
 
             let humanizedParagraphs = paragraphs.map(para => {
                 let sentences = para.match(/[^.!?]+[.!?]+/g) || [para];
-
+                
                 // Splitting long sentences
                 if (allowHooks) {
                     let newSentences = [];
@@ -2276,10 +2210,10 @@
                         };
                         const pool = transitions[style] || transitions.casual;
                         const hook = pool[Math.floor(Math.random() * pool.length)];
-
+                        
                         const oldTransitionsRegex = /^(Consequently|Furthermore|Ultimately|Simultaneously|Essentially|Basically|Admittedly|Evidently|In conclusion|To summarize|In final analysis|Generally speaking|To put it simply|As it turns out|To be completely honest|If you look at the raw data|At the end of the day|It is crucial to observe that|In a broader theoretical perspective|Analysis strongly suggests that|This structurally implies that|From an empirical standpoint|In a strange twist of fate|For all intents and purposes|Almost instinctively|As if by design|Curiously enough|With a touch of elegance|As the narrative unfolds|Quietly, almost imperceptibly|Through a modern prism|Like a gentle breeze|Building upon this foundational premise|It is essential to note that|From a macro perspective|Parallel to these developments|Accordingly|This forces a re-evaluation of previously established deterministic models|Building upon this|Analysis indicates)[,\s]+/i;
                         trimmed = trimmed.replace(oldTransitionsRegex, '');
-
+                        
                         trimmed = hook + trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
                     } else if (allowHooks && rand < 0.65) {
                         if (trimmed.includes(", ")) {
@@ -2403,22 +2337,86 @@
                     });
                     trimmed = wordHumanized.join("");
 
+                    const adv = ["very", "highly", "extremely", "notably", "significantly", "incredibly", "truly", "quite", "rather", "especially"];
+                    const adj = ["important", "crucial", "essential", "vital", "key", "significant", "fundamental", "paramount", "necessary", "critical"];
+                    const noun = ["factor", "element", "component", "aspect", "detail", "variable", "piece", "part", "portion", "section"];
+                    let tokens = trimmed.split(" ");
+                    
+                    function swapPhraseAnyOrder(words, replacementStr) {
+                        let matchesAll = words.every(w => trimmed.toLowerCase().includes(w));
+                        if (matchesAll) {
+                            let firstIdx = -1;
+                            for (let i=0; i<tokens.length; i++) {
+                                if (words.includes(tokens[i].toLowerCase())) {
+                                    if (firstIdx === -1) {
+                                        tokens[i] = replacementStr;
+                                        firstIdx = i;
+                                    } else {
+                                        tokens[i] = "";
+                                    }
+                                }
+                            }
+                            trimmed = tokens.filter(t => t !== "").join(" ");
+                        }
+                    }
+
+                    for(let a of adv) {
+                        for(let b of adj) {
+                            swapPhraseAnyOrder([a, b], "critical");
+                        }
+                    }
+                    for(let a of adv) {
+                        for(let b of adj) {
+                            for(let c of noun) {
+                                swapPhraseAnyOrder([a, b, c], "primary focus");
+                            }
+                        }
+                    }
+                    for(let a of adj) {
+                        for(let b of noun) {
+                            swapPhraseAnyOrder([a, b], "component");
+                        }
+                    }
+                    for(let a of adv) {
+                        for(let b of noun) {
+                            swapPhraseAnyOrder([a, b], "key element");
+                        }
+                    }
+                    swapPhraseAnyOrder(["at", "the", "end", "of", "the", "day"], "ultimately");
+                    swapPhraseAnyOrder(["due", "to", "the", "fact", "that"], "because");
+                    swapPhraseAnyOrder(["in", "order", "to"], "to");
+                    swapPhraseAnyOrder(["for", "all", "intents", "and", "purposes"], "practically");
+                    swapPhraseAnyOrder(["in", "the", "event", "that"], "if");
+
+                    if (typeof nlp !== 'undefined') {
+                        let doc = nlp(trimmed);
+                        doc.match('#ProperNoun').toTitleCase();
+                        trimmed = doc.text();
+                    }
+                    
+                    trimmed = trimmed.replace(/\s+/g, " ")
+                                     .replace(/\s,/g, ",")
+                                     .replace(/\s\./g, ".")
+                                     .replace(/,,+/g, ",")
+                                     .replace(/\.\.+/g, ".")
+                                     .trim();
+
                     trimmed = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
                     return trimmed;
                 });
-
+                
                 // Swap sentence order for 30-60% of sentences, ignoring first and last
                 if (humanizedSentences.length > 3 && allowHooks) {
                     for (let i = 1; i < humanizedSentences.length - 2; i++) {
                         if (Math.random() < 0.45) {
                             let temp = humanizedSentences[i];
-                            humanizedSentences[i] = humanizedSentences[i + 1];
-                            humanizedSentences[i + 1] = temp;
+                            humanizedSentences[i] = humanizedSentences[i+1];
+                            humanizedSentences[i+1] = temp;
                             i++; // Skip the next index since it was just swapped
                         }
                     }
                 }
-
+                
                 return humanizedSentences.join(" ");
             });
             return humanizedParagraphs.join("\n\n");
@@ -2787,7 +2785,7 @@
 
             if (essayTopic) essayTopic.value = titleCasedTopic;
             if (essayPaper) essayPaper.innerHTML = humanizedCompiledText;
-
+            
             setTimeout(() => {
                 showToast(`💡 Synchronized: I have loaded this document into your <button onclick="switchTab('essay')" class="text-indigo-400 hover:underline font-semibold pointer-events-auto">Compose Engine</button> tab!`);
             }, 500);
@@ -2893,7 +2891,12 @@
         function solveComplexMathAndPhysics(text) {
             const numPattern = /[-+]?[0-9]*\.?[0-9]+/g;
             const values = (text.match(numPattern) || []).map(n => parseFloat(n));
-            const lowercaseText = text.toLowerCase();
+            const lowercaseText = text.toLowerCase()
+                .replace(/\bwaht\b/gi, 'what')
+                .replace(/\btimes\b/gi, '*')
+                .replace(/\bplus\b/gi, '+')
+                .replace(/\bminus\b/gi, '-')
+                .replace(/\bdivided by\b/gi, '/');
 
             // Try Natural Language Formula Chaining first
             const nlpVars = extractPhysicsVariables(text);
@@ -3281,7 +3284,7 @@
             } else if (mod === 'natural') {
                 const textInput = document.getElementById('natural-nlp-input').value;
                 const solverPaper = document.getElementById('solver-paper');
-
+                
                 if (isOnlineEngineAvailable) {
                     if (solverPaper) solverPaper.innerHTML = `<div class="space-y-3 text-xs p-4"><h4 class="text-sm font-bold text-teal-400"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Neural Logic Solver</h4><p class="text-indigo-400"><i class="fa-solid fa-circle-notch fa-spin"></i> Processing complex mathematics via Live Engine...</p></div>`;
                     const mathSysPrompt = "You are an advanced physics and mathematics problem solver. Extract known variables, identify the target variable, and solve the problem step-by-step. Use strict LaTeX notation for math (enclosed in $...$ or $$...$$). Output clean HTML without Markdown codeblocks. Use Tailwind CSS classes for beautiful dark-mode styling (e.g. text-emerald-400, font-mono, space-y-2, p-3, bg-slate-900).";
@@ -3293,94 +3296,94 @@
                         outputHTML = `<p class="text-rose-400 text-xs">Error connecting to Live Engine: ${e.message}. Falling back to offline heuristics...</p>`;
                     }
                 }
-
+                
                 if (!isOnlineEngineAvailable || outputHTML.includes("Error connecting")) {
                     const nlpVars = extractPhysicsVariables(textInput);
                     const knowns = nlpVars.knowns;
-                    const target = nlpVars.target;
-                    const conceptNotes = nlpVars.conceptNotes || [];
+                const target = nlpVars.target;
+                const conceptNotes = nlpVars.conceptNotes || [];
 
-                    if (Object.keys(knowns).length === 0) {
-                        outputHTML = `<p class="text-xs text-rose-400">Could not detect any physics variables or units. Please use standard units like kg, m/s, s, N, J, W, V, etc.</p>`;
+                if (Object.keys(knowns).length === 0) {
+                    outputHTML = `<p class="text-xs text-rose-400">Could not detect any physics variables or units. Please use standard units like kg, m/s, s, N, J, W, V, etc.</p>`;
+                } else {
+                    let stepsHTML = `<div class="space-y-3 text-xs"><h4 class="text-sm font-bold text-teal-400"><i class="fa-solid fa-wand-magic-sparkles"></i> NLP Multi-Formula Solver Chain</h4>`;
+                    stepsHTML += `<p class="text-slate-400">Extracted Knowns: ${Object.entries(knowns).map(([k, v]) => `<span class="text-slate-200 font-mono">${k}</span>=<span class="text-emerald-400 font-mono">${typeof v === 'number' ? (Math.abs(v) < 0.001 || Math.abs(v) > 99999 ? v.toExponential(4) : parseFloat(v.toFixed(6))) : v}</span>`).join(', ')}</p>`;
+                    if (target) stepsHTML += `<p class="text-indigo-400"><i class="fa-solid fa-crosshairs"></i> Detected Target: <span class="font-mono font-bold">${target}</span></p>`;
+
+                    // Show concept notes if any
+                    if (conceptNotes.length > 0) {
+                        stepsHTML += `<div class="p-2 bg-indigo-950/50 border border-indigo-500/20 rounded space-y-1">`;
+                        conceptNotes.forEach(note => {
+                            stepsHTML += `<p class="text-[10px] text-indigo-300"><i class="fa-solid fa-lightbulb text-amber-400"></i> ${note}</p>`;
+                        });
+                        stepsHTML += `</div>`;
+                    }
+
+                    // Check if target is already known (e.g., conceptual answer)
+                    if (target && target in knowns) {
+                        stepsHTML += `<div class="p-3 bg-emerald-950/50 border border-emerald-500/30 rounded-lg mt-2">`;
+                        stepsHTML += `<p class="text-emerald-400 font-bold"><i class="fa-solid fa-check-circle"></i> Answer: <span class="font-mono text-lg">${target} = ${typeof knowns[target] === 'number' ? (Math.abs(knowns[target]) < 0.001 || Math.abs(knowns[target]) > 99999 ? knowns[target].toExponential(4) : parseFloat(knowns[target].toFixed(6))) : knowns[target]}</span></p>`;
+                        stepsHTML += `</div>`;
+                        stepsHTML += `</div>`;
+                        outputHTML = stepsHTML;
                     } else {
-                        let stepsHTML = `<div class="space-y-3 text-xs"><h4 class="text-sm font-bold text-teal-400"><i class="fa-solid fa-wand-magic-sparkles"></i> NLP Multi-Formula Solver Chain</h4>`;
-                        stepsHTML += `<p class="text-slate-400">Extracted Knowns: ${Object.entries(knowns).map(([k, v]) => `<span class="text-slate-200 font-mono">${k}</span>=<span class="text-emerald-400 font-mono">${typeof v === 'number' ? (Math.abs(v) < 0.001 || Math.abs(v) > 99999 ? v.toExponential(4) : parseFloat(v.toFixed(6))) : v}</span>`).join(', ')}</p>`;
-                        if (target) stepsHTML += `<p class="text-indigo-400"><i class="fa-solid fa-crosshairs"></i> Detected Target: <span class="font-mono font-bold">${target}</span></p>`;
+                        let currentKnowns = Object.assign({}, knowns);
+                        let changed = true;
+                        let solvedVars = [];
+                        let maxIterations = 15;
 
-                        // Show concept notes if any
-                        if (conceptNotes.length > 0) {
-                            stepsHTML += `<div class="p-2 bg-indigo-950/50 border border-indigo-500/20 rounded space-y-1">`;
-                            conceptNotes.forEach(note => {
-                                stepsHTML += `<p class="text-[10px] text-indigo-300"><i class="fa-solid fa-lightbulb text-amber-400"></i> ${note}</p>`;
-                            });
-                            stepsHTML += `</div>`;
-                        }
+                        while (changed && maxIterations > 0) {
+                            changed = false;
+                            maxIterations--;
 
-                        // Check if target is already known (e.g., conceptual answer)
-                        if (target && target in knowns) {
-                            stepsHTML += `<div class="p-3 bg-emerald-950/50 border border-emerald-500/30 rounded-lg mt-2">`;
-                            stepsHTML += `<p class="text-emerald-400 font-bold"><i class="fa-solid fa-check-circle"></i> Answer: <span class="font-mono text-lg">${target} = ${typeof knowns[target] === 'number' ? (Math.abs(knowns[target]) < 0.001 || Math.abs(knowns[target]) > 99999 ? knowns[target].toExponential(4) : parseFloat(knowns[target].toFixed(6))) : knowns[target]}</span></p>`;
-                            stepsHTML += `</div>`;
-                            stepsHTML += `</div>`;
-                            outputHTML = stepsHTML;
-                        } else {
-                            let currentKnowns = Object.assign({}, knowns);
-                            let changed = true;
-                            let solvedVars = [];
-                            let maxIterations = 15;
+                            for (let eq of HUGE_PHYSICS_FORMULAS) {
+                                const parts = eq.split('=');
+                                if (parts.length !== 2) continue;
+                                const lhsMatches = [...parts[0].matchAll(/\b[a-zA-Z_][a-zA-Z0-9_]*\b/g)];
+                                const rhsMatches = [...parts[1].matchAll(/\b[a-zA-Z_][a-zA-Z0-9_]*\b/g)];
+                                const lhsVars = [...new Set(lhsMatches.map(m => m[0]))];
+                                const rhsVars = [...new Set(rhsMatches.map(m => m[0]))];
+                                const allVars = [...new Set([...lhsVars, ...rhsVars])].filter(v => v !== 'pi' && v !== 'e' && v !== 'sin' && v !== 'cos' && v !== 'tan' && v !== 'log' && v !== 'exp' && v !== 'asin' && v !== 'acos' && v !== 'atan' && v !== 'sqrt');
 
-                            while (changed && maxIterations > 0) {
-                                changed = false;
-                                maxIterations--;
+                                let unknownVars = allVars.filter(v => !(v in currentKnowns));
+                                if (unknownVars.length === 1) {
+                                    let unk = unknownVars[0];
+                                    let val = solveEquationForUnknown(eq, currentKnowns, unk);
+                                    if (val !== null && !isNaN(val)) {
+                                        currentKnowns[unk] = val;
+                                        solvedVars.push({ eq: eq, solved: unk, val: val });
+                                        changed = true;
 
-                                for (let eq of HUGE_PHYSICS_FORMULAS) {
-                                    const parts = eq.split('=');
-                                    if (parts.length !== 2) continue;
-                                    const lhsMatches = [...parts[0].matchAll(/\b[a-zA-Z_][a-zA-Z0-9_]*\b/g)];
-                                    const rhsMatches = [...parts[1].matchAll(/\b[a-zA-Z_][a-zA-Z0-9_]*\b/g)];
-                                    const lhsVars = [...new Set(lhsMatches.map(m => m[0]))];
-                                    const rhsVars = [...new Set(rhsMatches.map(m => m[0]))];
-                                    const allVars = [...new Set([...lhsVars, ...rhsVars])].filter(v => v !== 'pi' && v !== 'e' && v !== 'sin' && v !== 'cos' && v !== 'tan' && v !== 'log' && v !== 'exp' && v !== 'asin' && v !== 'acos' && v !== 'atan' && v !== 'sqrt');
-
-                                    let unknownVars = allVars.filter(v => !(v in currentKnowns));
-                                    if (unknownVars.length === 1) {
-                                        let unk = unknownVars[0];
-                                        let val = solveEquationForUnknown(eq, currentKnowns, unk);
-                                        if (val !== null && !isNaN(val)) {
-                                            currentKnowns[unk] = val;
-                                            solvedVars.push({ eq: eq, solved: unk, val: val });
-                                            changed = true;
-
-                                            stepsHTML += `<div class="p-2 bg-slate-950 border border-slate-800 rounded">
+                                        stepsHTML += `<div class="p-2 bg-slate-950 border border-slate-800 rounded">
                                         <p class="text-[10px] text-slate-500 mb-1">Applying: <span class="text-slate-300 font-mono">${eq}</span></p>
                                         <p class="text-emerald-400 font-mono">Found ${unk} = ${Math.abs(val) < 0.001 || Math.abs(val) > 99999 ? val.toExponential(4) : parseFloat(val.toFixed(6))}</p>
                                     </div>`;
 
-                                            if (target && unk === target) {
-                                                changed = false;
-                                                break;
-                                            }
+                                        if (target && unk === target) {
+                                            changed = false;
+                                            break;
                                         }
                                     }
                                 }
                             }
-
-                            if (solvedVars.length === 0) {
-                                stepsHTML += `<p class="text-rose-400 mt-2"><i class="fa-solid fa-triangle-exclamation"></i> Could not find a valid formula chain to apply. Need more known variables or try rephrasing with standard physics units.</p>`;
-                            } else if (target && !(target in currentKnowns)) {
-                                stepsHTML += `<p class="text-amber-400 mt-2"><i class="fa-solid fa-circle-exclamation"></i> Solver chained some variables, but couldn't reach the target '<span class="font-mono">${target}</span>'. Try providing additional known values.</p>`;
-                            } else if (target && target in currentKnowns) {
-                                let finalVal = currentKnowns[target];
-                                stepsHTML += `<div class="p-3 bg-emerald-950/50 border border-emerald-500/30 rounded-lg mt-2">`;
-                                stepsHTML += `<p class="text-emerald-400 font-bold"><i class="fa-solid fa-check-circle"></i> Answer: <span class="font-mono text-lg">${target} = ${Math.abs(finalVal) < 0.001 || Math.abs(finalVal) > 99999 ? finalVal.toExponential(4) : parseFloat(finalVal.toFixed(6))}</span></p>`;
-                                stepsHTML += `</div>`;
-                            } else {
-                                stepsHTML += `<p class="text-indigo-400 mt-2"><i class="fa-solid fa-link"></i> Chained ${solvedVars.length} formula(s) dynamically.</p>`;
-                            }
-                            stepsHTML += `</div>`;
-                            outputHTML = stepsHTML;
                         }
+
+                        if (solvedVars.length === 0) {
+                            stepsHTML += `<p class="text-rose-400 mt-2"><i class="fa-solid fa-triangle-exclamation"></i> Could not find a valid formula chain to apply. Need more known variables or try rephrasing with standard physics units.</p>`;
+                        } else if (target && !(target in currentKnowns)) {
+                            stepsHTML += `<p class="text-amber-400 mt-2"><i class="fa-solid fa-circle-exclamation"></i> Solver chained some variables, but couldn't reach the target '<span class="font-mono">${target}</span>'. Try providing additional known values.</p>`;
+                        } else if (target && target in currentKnowns) {
+                            let finalVal = currentKnowns[target];
+                            stepsHTML += `<div class="p-3 bg-emerald-950/50 border border-emerald-500/30 rounded-lg mt-2">`;
+                            stepsHTML += `<p class="text-emerald-400 font-bold"><i class="fa-solid fa-check-circle"></i> Answer: <span class="font-mono text-lg">${target} = ${Math.abs(finalVal) < 0.001 || Math.abs(finalVal) > 99999 ? finalVal.toExponential(4) : parseFloat(finalVal.toFixed(6))}</span></p>`;
+                            stepsHTML += `</div>`;
+                        } else {
+                            stepsHTML += `<p class="text-indigo-400 mt-2"><i class="fa-solid fa-link"></i> Chained ${solvedVars.length} formula(s) dynamically.</p>`;
+                        }
+                        stepsHTML += `</div>`;
+                        outputHTML = stepsHTML;
                     }
+                }
                 } // End of !isOnlineEngineAvailable check
             }
 
@@ -3400,9 +3403,9 @@
             const reader = new FileReader();
 
             if (file.name.endsWith('.txt')) {
-                reader.onload = function (evt) {
+                reader.onload = function (evt) { 
                     const content = evt.target.result;
-                    trainMarkovText(content);
+                    trainMarkovText(content); 
                     addUploadedFile(file.name, content, 'txt');
                 };
                 reader.readAsText(file);
@@ -3422,9 +3425,9 @@
                 };
                 reader.readAsArrayBuffer(file);
             } else if (file.name.endsWith('.csv') || file.name.endsWith('.json')) {
-                reader.onload = function (evt) {
+                reader.onload = function (evt) { 
                     const content = evt.target.result;
-                    trainRegressionMetrics(content, file.name.endsWith('.json'));
+                    trainRegressionMetrics(content, file.name.endsWith('.json')); 
                     addUploadedFile(file.name, content, file.name.endsWith('.csv') ? 'csv' : 'json');
                 };
                 reader.readAsText(file);
@@ -3976,7 +3979,7 @@
             window.testPreloaded = testPreloaded;
             window.insertMath = insertMath;
             window.updateMathPreview = updateMathPreview;
-
+            
             initCanvas();
 
             // Setup dynamic IntersectionObserver Scroll Spy to track active navigation buttons as the user scrolls
@@ -4123,7 +4126,7 @@
             loadState();
             updateMemoryUI();
         });
-
+        
         // --- Uploaded Files Logic ---
         function addUploadedFile(name, content, type) {
             UPLOADED_FILES.push({ name, content, type });
@@ -4180,25 +4183,19 @@
             URL.revokeObjectURL(url);
         }
     </script>
-
+    
     <!-- File Preview Modal -->
-    <div id="file-preview-modal"
-        class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div
-            class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
+    <div id="file-preview-modal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full max-h-[80vh] flex flex-col shadow-2xl overflow-hidden">
             <div class="flex justify-between items-center p-4 border-b border-slate-800 bg-slate-850">
-                <h4 id="file-preview-name" class="font-bold text-slate-200 truncate pr-4 text-sm font-mono">Filename.txt
-                </h4>
+                <h4 id="file-preview-name" class="font-bold text-slate-200 truncate pr-4 text-sm font-mono">Filename.txt</h4>
                 <div class="flex gap-2">
-                    <button id="file-preview-download"
-                        class="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 text-[10px] uppercase font-bold rounded border border-emerald-500/30 transition">Download</button>
-                    <button onclick="document.getElementById('file-preview-modal').classList.add('hidden')"
-                        class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] uppercase font-bold rounded transition">Close</button>
+                    <button id="file-preview-download" class="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-300 text-[10px] uppercase font-bold rounded border border-emerald-500/30 transition">Download</button>
+                    <button onclick="document.getElementById('file-preview-modal').classList.add('hidden')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] uppercase font-bold rounded transition">Close</button>
                 </div>
             </div>
             <div class="p-4 overflow-y-auto flex-grow bg-slate-950">
-                <pre id="file-preview-content"
-                    class="text-xs text-slate-400 font-mono whitespace-pre-wrap word-break"></pre>
+                <pre id="file-preview-content" class="text-xs text-slate-400 font-mono whitespace-pre-wrap word-break"></pre>
             </div>
         </div>
     </div>
