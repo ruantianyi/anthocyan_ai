@@ -666,7 +666,7 @@
                             </div>
                             <div
                                 class="bg-slate-50/60 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 p-3.5 rounded-2xl rounded-bl-none text-sm leading-relaxed border border-slate-200/40 dark:border-slate-800/40 shadow-inner">
-                                Welcome to <strong class="text-indigo-600 dark:text-indigo-300">OmniBot 6.3
+                                Welcome to <strong class="text-indigo-600 dark:text-indigo-300">OmniBot 6.4
                                     Nexus</strong> — the most advanced offline AI suite yet. 🚀<br><br>Powered by an
                                 expanded knowledge graph, a procedural creative fiction engine, and real Math.js
                                 calculus. Add an API key in settings to unlock the full live hybrid engine.
@@ -3962,17 +3962,17 @@
             function appendBotMessage(text, skipHumanize = false) {
                 const chatMessages = document.getElementById('chat-messages');
                 if (!chatMessages) return;
-                let iconClass = 'fa-robot text-indigo-400';
-                let bgStyle = 'bg-slate-800/60 border-slate-800/40';
+                let iconClass = 'fa-robot text-indigo-650 dark:text-indigo-400';
+                let bgStyle = 'bg-slate-100/80 dark:bg-slate-800/60 border-slate-200 dark:border-slate-800/40';
                 let labelName = 'Alpha';
 
                 if (currentPersonality === 'nova') {
-                    iconClass = 'fa-ghost text-amber-400';
-                    bgStyle = 'bg-slate-900/40 border-amber-500/10';
+                    iconClass = 'fa-ghost text-amber-600 dark:text-amber-400';
+                    bgStyle = 'bg-amber-50/40 dark:bg-slate-900/40 border-amber-200/80 dark:border-amber-500/10';
                     labelName = 'Nova';
                 } else if (currentPersonality === 'luna') {
-                    iconClass = 'fa-spa text-teal-400';
-                    bgStyle = 'bg-slate-900/40 border-teal-500/10';
+                    iconClass = 'fa-spa text-teal-600 dark:text-teal-400';
+                    bgStyle = 'bg-teal-50/40 dark:bg-slate-900/40 border-teal-200/80 dark:border-teal-500/10';
                     labelName = 'Luna';
                 }
 
