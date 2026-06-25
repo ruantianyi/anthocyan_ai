@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Physics of Elliptical Orbits: An Interactive Textbook</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="knowledge_base.js"></script>
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
@@ -34,17 +32,17 @@
     @media print {
       @page { margin: 0.75in; }
       body { background-color: #ffffff !important; color: #0f172a !important; font-size: 11pt; }
-      .no-print, header, footer, aside, nav, button, input, select, #simulator, .interactive-sim { display: none !important; }
+      .no-print, header, footer, aside, nav, button, input, select, #simulator, .interactive-sim, .exercise-box { display: none !important; }
       main { width: 100% !important; max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
       article { page-break-inside: avoid; margin-bottom: 2rem !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
-      .bg-white, .bg-slate-50, .bg-indigo-50\/50 { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+      .bg-white, .bg-slate-50, .bg-indigo-50\/50, .bg-blue-50 { background-color: transparent !important; border: none !important; box-shadow: none !important; }
       h1, h2, h3, h4 { page-break-after: avoid; color: #000 !important; }
       p { line-height: 1.6; margin-bottom: 1rem; }
       svg { max-width: 100% !important; height: auto !important; page-break-inside: avoid; }
       .shadow-sm, .shadow-md, .rounded-2xl, .rounded-3xl { box-shadow: none !important; border-radius: 0 !important; }
       .border, .border-slate-200 { border: 1px solid #cbd5e1 !important; }
       .print-border { border: 1px solid #000; padding: 1rem; margin-bottom: 1rem; }
-      .text-slate-600 { color: #334155 !important; }
+      .text-slate-600, .text-blue-900 { color: #334155 !important; }
     }
   </style>
 </head>
@@ -149,11 +147,11 @@
             <a href="#geometry" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">1. Geometric Foundations</a>
             <a href="#kepler" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">2. Keplerian Dynamics</a>
             <a href="#forces-speeds" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">3. Vector Forces & Speeds</a>
-            <a href="#dynamics" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">4. Conservation & Conics</a>
+            <a href="#dynamics" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">4. Angular Momentum & Conics</a>
             <a href="#energy" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">5. Energetics & Vis-Viva</a>
             <a href="#calculator" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">6. Mission Calculator</a>
-            <a href="#quiz" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg">7. Comprehension Quiz</a>
-            <a href="#reference-guide" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg mt-4">Exam Cheat Sheet</a>
+            <a href="#quiz" class="group flex items-center px-3 py-2 text-sm text-slate-600 hover:text-brand-600 hover:bg-white rounded-lg font-bold">7. Comprehension Quiz</a>
+            <a href="#reference-guide" class="group flex items-center px-3 py-2 text-sm font-bold text-indigo-600 bg-indigo-50 rounded-lg mt-4">Exam Cheat Sheet</a>
           </nav>
         </div>
       </aside>
@@ -239,25 +237,36 @@
                 <text x="375" y="180" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-sm italic">r</text>
                 <text x="375" y="180" fill="#ef4444" class="vector-label text-sm italic">r</text>
 
-                <!-- True Anomaly - Correctly anchored to Periapsis line -->
-                <path d="M 235 225 A 35 35 0 0 0 220 195" fill="none" stroke="#ef4444" stroke-width="2" />
-                <text x="250" y="190" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">&theta; (True Anomaly)</text>
-                <text x="250" y="190" fill="#ef4444" class="vector-label text-xs">&theta; (True Anomaly)</text>
+                <!-- True Anomaly - Anchored smoothly -->
+                <path d="M 235 225 A 35 35 0 0 0 234 215" fill="none" stroke="#ef4444" stroke-width="2" />
+                <text x="250" y="215" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">&theta; (True Anomaly)</text>
+                <text x="250" y="215" fill="#ef4444" class="vector-label text-xs">&theta; (True Anomaly)</text>
               </svg>
             </div>
 
-            <div class="text-slate-600 space-y-4 leading-relaxed text-justify">
-              <p>
-                The <strong>eccentricity</strong> ($e$) of the orbit dictates the severity of the orbital oval. It is defined fundamentally by the ratio of the focal distance to the semi-major axis, formulated precisely as:
-                $$e = \sqrt{1 - \frac{b^2}{a^2}}$$
-                For bound planetary systems, the value is strictly constrained between $0 \le e < 1$. A zero eccentricity yields a perfect circle ($b=a$), meaning the two foci merge into a single central point. 
-              </p>
-              <p>
-                When establishing a coordinate framework, astrodynamicists abandon Cartesian $(x,y)$ coordinates centered at $(0,0)$ in favor of polar coordinates $(r, \theta)$ anchored securely on the active focus ($F_1$). By defining $\theta = 0^\circ$ at the exact point of closest approach, the true path distance equation seamlessly elegantly resolves to:
-                $$r(\theta) = \frac{a(1 - e^2)}{1 + e\cos\theta}$$
-                This equation maps the satellite's exact radial position vector solely using geometric constants and the sweeping <em>true anomaly</em> angle $\theta$.
-              </p>
+            <!-- Example Box -->
+            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl print-border">
+              <h4 class="font-bold text-blue-900 mb-2">Example Problem: Finding Apsides</h4>
+              <p class="text-sm text-blue-800 mb-4">A communication satellite is placed in an elliptical orbit around Earth with a semi-major axis $a = 15,000$ km and an eccentricity $e = 0.2$. Calculate its periapsis and apoapsis distances.</p>
+              <div class="bg-white p-4 rounded-xl text-sm font-mono text-slate-700">
+                <p>1. Formula for Periapsis: $r_p = a(1 - e)$</p>
+                <p>2. Substitute: $r_p = 15,000 \times (1 - 0.2) = 15,000 \times 0.8 = \mathbf{12,000 \text{ km}}$</p>
+                <p class="mt-2">3. Formula for Apoapsis: $r_a = a(1 + e)$</p>
+                <p>4. Substitute: $r_a = 15,000 \times (1 + 0.2) = 15,000 \times 1.2 = \mathbf{18,000 \text{ km}}$</p>
+              </div>
             </div>
+
+            <!-- Exercise Box -->
+            <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl exercise-box">
+              <h4 class="font-bold text-emerald-900 mb-2">Check Your Understanding</h4>
+              <p class="text-sm text-emerald-800 mb-4">A comet's orbit has a semi-major axis of $50$ AU and an eccentricity of $0.9$. What is its periapsis distance (in AU)?</p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="ex1-input" class="p-2.5 rounded-lg border border-emerald-200 outline-none focus:border-emerald-500 w-full sm:w-1/3 text-sm" placeholder="Enter number...">
+                <button onclick="checkExercise('ex1', 5)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-5 rounded-lg text-sm transition">Validate Answer</button>
+              </div>
+              <p id="ex1-fb" class="mt-3 text-sm font-bold hidden"></p>
+            </div>
+
           </div>
         </article>
 
@@ -286,21 +295,21 @@
               <span class="text-xs font-bold text-slate-500 block mb-3 text-center uppercase tracking-wider">Figure 1.2: Kepler's Second Law — Area and Velocity Conservation</span>
               <svg viewBox="0 0 800 350" width="100%" height="auto" class="rounded-lg bg-white">
                 <!-- Swept paths perfectly locked to the focus point -->
-                <path d="M 152 175 L 157.5 110 A 280 130 0 0 0 157.5 240 Z" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5" />
-                <path d="M 152 175 L 670.4 141.4 A 280 130 0 0 1 670.4 208.6 Z" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5" />
+                <path d="M 152 175 L 129.5 129 A 280 130 0 0 0 129.5 221 Z" fill="#ef4444" fill-opacity="0.15" stroke="#ef4444" stroke-width="1.5" />
+                <path d="M 152 175 L 670 141 A 280 130 0 0 1 670 209 Z" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5" />
 
                 <ellipse cx="400" cy="175" rx="280" ry="130" fill="none" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="3" class="no-print" />
                 <ellipse cx="400" cy="175" rx="280" ry="130" fill="none" stroke="#4f46e5" stroke-width="2.5" />
                 
-                <circle cx="152" cy="175" r="18" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
-                <text x="152" y="215" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-sm" text-anchor="middle">Sun Focus</text>
-                <text x="152" y="215" fill="#d97706" class="vector-label text-sm" text-anchor="middle">Sun Focus</text>
+                <circle cx="152" cy="175" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
+                <text x="152" y="210" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="middle">Sun Focus</text>
+                <text x="152" y="210" fill="#d97706" class="vector-label text-xs" text-anchor="middle">Sun Focus</text>
                 
-                <text x="210" y="179" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-sm" text-anchor="middle">Area A₁</text>
-                <text x="210" y="179" fill="#b91c1c" class="vector-label text-sm" text-anchor="middle">Area A₁</text>
+                <text x="180" y="179" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-sm">Area A₁</text>
+                <text x="180" y="179" fill="#b91c1c" class="vector-label text-sm">Area A₁</text>
                 
-                <text x="130" y="75" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">t₀ to t₁ (Fast Sweep)</text>
-                <text x="130" y="75" fill="#64748b" class="vector-label text-xs">t₀ to t₁ (Fast Sweep)</text>
+                <text x="110" y="110" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">t₀ to t₁ (Fast Sweep)</text>
+                <text x="110" y="110" fill="#64748b" class="vector-label text-xs">t₀ to t₁ (Fast Sweep)</text>
                 
                 <text x="500" y="180" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-sm" text-anchor="middle">Area A₂</text>
                 <text x="500" y="180" fill="#047857" class="vector-label text-sm" text-anchor="middle">Area A₂</text>
@@ -308,12 +317,12 @@
                 <text x="645" y="110" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">t₂ to t₃ (Slow Sweep)</text>
                 <text x="645" y="110" fill="#64748b" class="vector-label text-xs">t₂ to t₃ (Slow Sweep)</text>
 
-                <text x="400" y="325" fill="#1e293b" class="vector-label text-sm" text-anchor="middle">Area A₁ = Area A₂ IF the time difference (t₁ - t₀) is exactly equal to (t₃ - t₂)</text>
+                <text x="400" y="325" fill="#1e293b" class="vector-label text-sm" text-anchor="middle">Area A₁ = Area A₂ IF the time differential (t₁ - t₀) is exactly equal to (t₃ - t₂)</text>
               </svg>
             </div>
             
             <p class="text-slate-600 leading-relaxed text-justify">
-              Kepler's <strong>Third Law (The Law of Periods)</strong> establishes a mathematical proportionality connecting the overall geometric size of the orbit (the semi-major axis $a$) and the chronological time required to complete one full revolution ($T$). 
+              Kepler's <strong>Third Law (The Law of Periods)</strong> establishes a mathematical proportionality connecting the overall geometric size of the orbit (the semi-major axis $a$) and the chronological time required to complete one full revolution ($T$). Mathematically formulated as $T^2 \propto a^3$, it guarantees that planets further out experience vastly longer years not just due to geometry, but due to radically diminished gravitational acceleration.
             </p>
             
             <!-- Interactive 3 -->
@@ -340,6 +349,29 @@
                   </svg>
                 </div>
               </div>
+            </div>
+
+            <!-- Example Box -->
+            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl print-border">
+              <h4 class="font-bold text-blue-900 mb-2">Example Problem: Deriving Period</h4>
+              <p class="text-sm text-blue-800 mb-4">An asteroid is discovered orbiting the sun with a semi-major axis $a = 4 \text{ AU}$. What is its orbital period $T$ in Earth years?</p>
+              <div class="bg-white p-4 rounded-xl text-sm font-mono text-slate-700">
+                <p>1. Kepler's 3rd Law ratio (for the Sun): $T^2 = a^3$</p>
+                <p>2. Substitute $a = 4$: $T^2 = 4^3$</p>
+                <p>3. Calculate cube: $T^2 = 64$</p>
+                <p>4. Take square root: $T = \sqrt{64} = \mathbf{8 \text{ Years}}$</p>
+              </div>
+            </div>
+
+            <!-- Exercise Box -->
+            <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl exercise-box">
+              <h4 class="font-bold text-emerald-900 mb-2">Check Your Understanding</h4>
+              <p class="text-sm text-emerald-800 mb-4">A dwarf planet has an orbital period of $27$ Earth years. What is its semi-major axis in AU?</p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="ex2-input" class="p-2.5 rounded-lg border border-emerald-200 outline-none focus:border-emerald-500 w-full sm:w-1/3 text-sm" placeholder="Enter number...">
+                <button onclick="checkExercise('ex2', 9)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-5 rounded-lg text-sm transition">Validate Answer</button>
+              </div>
+              <p id="ex2-fb" class="mt-3 text-sm font-bold hidden"></p>
             </div>
 
           </div>
@@ -376,8 +408,8 @@
 
                 <!-- Central Mass -->
                 <circle cx="181" cy="225" r="14" fill="#fbbf24" stroke="#d97706" stroke-width="2" />
-                <text x="181" y="260" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="middle">Central Body (M)</text>
-                <text x="181" y="260" fill="#d97706" class="vector-label text-xs" text-anchor="middle">Central Body (M)</text>
+                <text x="181" y="255" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="middle">Central Body (M)</text>
+                <text x="181" y="255" fill="#d97706" class="vector-label text-xs" text-anchor="middle">Central Body (M)</text>
 
                 <!-- Point A: Periapsis -->
                 <circle cx="140" cy="225" r="7" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
@@ -388,10 +420,8 @@
                 <!-- Perfect 90 degree Square Bracket -->
                 <path d="M 140 212 L 153 212 L 153 225" fill="none" stroke="#94a3b8" stroke-width="2" />
                 <line x1="140" y1="225" x2="167" y2="225" stroke="#ef4444" stroke-width="3" marker-end="url(#arrow-red)" />
-                <text x="140" y="250" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Fg</text>
-                <text x="140" y="250" fill="#b91c1c" class="vector-label text-xs">Fg</text>
-                <text x="90" y="229" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">90° Angle</text>
-                <text x="90" y="229" fill="#64748b" class="vector-label text-xs">90° Angle</text>
+                <text x="145" y="245" fill="#b91c1c" class="vector-label text-xs">Fg</text>
+                <text x="90" y="215" fill="#64748b" class="vector-label text-[10px]">90° Angle</text>
 
                 <!-- Point B: Descending Path -->
                 <circle cx="350" cy="90" r="7" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
@@ -400,25 +430,22 @@
                 <text x="440" y="110" fill="#047857" class="vector-label text-xs">v (Slowing Down)</text>
 
                 <line x1="350" y1="90" x2="231" y2="185" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow-red)" />
-                <text x="280" y="140" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Fg</text>
                 <text x="280" y="140" fill="#b91c1c" class="vector-label text-xs">Fg</text>
                 
                 <!-- Obtuse indicator -->
-                <path d="M 330 106 A 25 25 0 0 1 365 105" fill="none" stroke="#64748b" stroke-width="1.5" />
+                <path d="M 365 93 Q 355 110 340 102" fill="none" stroke="#94a3b8" stroke-width="1.5" />
                 <text x="365" y="125" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Obtuse Angle</text>
                 <text x="365" y="125" fill="#64748b" class="vector-label text-xs">Obtuse Angle</text>
 
                 <!-- Point C: Apoapsis -->
                 <circle cx="660" cy="225" r="7" fill="#2563eb" stroke="#ffffff" stroke-width="1.5" />
                 <line x1="660" y1="225" x2="660" y2="295" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
-                <text x="670" y="285" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">v_min (Slowest)</text>
                 <text x="670" y="285" fill="#047857" class="vector-label text-xs">v_min (Slowest)</text>
 
+                <path d="M 660 212 L 647 212 L 647 225" fill="none" stroke="#94a3b8" stroke-width="2" />
                 <line x1="660" y1="225" x2="610" y2="225" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrow-red)" />
-                <text x="625" y="210" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Fg</text>
                 <text x="625" y="210" fill="#b91c1c" class="vector-label text-xs">Fg</text>
-                <text x="680" y="229" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">90° Angle</text>
-                <text x="680" y="229" fill="#64748b" class="vector-label text-xs">90° Angle</text>
+                <text x="665" y="215" fill="#64748b" class="vector-label text-[10px]">90° Angle</text>
               </svg>
             </div>
             
@@ -431,7 +458,7 @@
               </p>
             </div>
             
-            <!-- Fig 2.1: Hohmann Transfer -->
+            <!-- Fig 3.2: Hohmann Transfer -->
             <div class="border border-slate-200 rounded-xl overflow-hidden bg-white p-4 mb-6 print-border">
               <span class="text-xs font-bold text-slate-500 block mb-3 text-center uppercase tracking-wider">Figure 3.2: Geometric Precision of the Hohmann Transfer</span>
               <svg viewBox="0 0 800 350" width="100%" height="auto" class="rounded-lg bg-white">
@@ -448,19 +475,49 @@
                 <!-- True math tangential ellipse -->
                 <ellipse cx="435" cy="175" rx="95" ry="88.3" fill="none" stroke="#4f46e5" stroke-width="2" stroke-dasharray="4" />
                 
+                <!-- Thrust 1: at x=340 -->
                 <line x1="340" y1="175" x2="340" y2="125" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#arrow-blue)" />
                 <text x="290" y="145" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Thrust (Δv₁)</text>
                 <text x="290" y="145" fill="#4f46e5" class="vector-label text-xs">Thrust (Δv₁)</text>
 
+                <!-- Thrust 2: at x=530 -->
                 <line x1="530" y1="175" x2="530" y2="225" stroke="#4f46e5" stroke-width="2.5" marker-end="url(#arrow-blue)" />
                 <text x="545" y="210" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Thrust (Δv₂)</text>
                 <text x="545" y="210" fill="#4f46e5" class="vector-label text-xs">Thrust (Δv₂)</text>
 
+                <text x="400" y="255" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="middle">Orbit 1 (Earth)</text>
                 <text x="400" y="255" fill="#10b981" class="vector-label text-xs" text-anchor="middle">Orbit 1 (Earth)</text>
+                
+                <text x="400" y="320" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="middle">Orbit 2 (Mars)</text>
                 <text x="400" y="320" fill="#ef4444" class="vector-label text-xs" text-anchor="middle">Orbit 2 (Mars)</text>
+                
+                <text x="460" y="75" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Transfer trajectory</text>
                 <text x="460" y="75" fill="#4f46e5" class="vector-label text-xs">Transfer trajectory</text>
               </svg>
             </div>
+
+            <!-- Example Box -->
+            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl print-border">
+              <h4 class="font-bold text-blue-900 mb-2">Example Problem: Conserved Momentum Ratio</h4>
+              <p class="text-sm text-blue-800 mb-4">A probe approaches periapsis at a distance of $r_p = 1 \text{ AU}$ traveling at $v_p = 30 \text{ km/s}$. If its apoapsis distance is $r_a = 5 \text{ AU}$, calculate its velocity $v_a$ at apoapsis.</p>
+              <div class="bg-white p-4 rounded-xl text-sm font-mono text-slate-700">
+                <p>1. Formula: $r_p v_p = r_a v_a$</p>
+                <p>2. Substitute: $1 \times 30 = 5 \times v_a$</p>
+                <p>3. Solve: $30 = 5 v_a \implies v_a = \frac{30}{5} = \mathbf{6 \text{ km/s}}$</p>
+              </div>
+            </div>
+
+            <!-- Exercise Box -->
+            <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl exercise-box">
+              <h4 class="font-bold text-emerald-900 mb-2">Check Your Understanding</h4>
+              <p class="text-sm text-emerald-800 mb-4">A satellite is at periapsis ($r_p = 2 \text{ units}$) moving at $10 \text{ units/s}$. What is its speed at apoapsis ($r_a = 4 \text{ units}$)?</p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="number" id="ex3-input" class="p-2.5 rounded-lg border border-emerald-200 outline-none focus:border-emerald-500 w-full sm:w-1/3 text-sm" placeholder="Enter number...">
+                <button onclick="checkExercise('ex3', 5)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-5 rounded-lg text-sm transition">Validate Answer</button>
+              </div>
+              <p id="ex3-fb" class="mt-3 text-sm font-bold hidden"></p>
+            </div>
+
           </div>
         </article>
 
@@ -526,7 +583,7 @@
               </p>
             </div>
 
-            <!-- Fig 4.3: Conic Sections Geometry -->
+            <!-- Fig 4.3: Conic Sections Geometry - REDESIGNED BEAUTIFUL 3D DOUBLE CONE -->
             <div class="border border-slate-200 rounded-xl overflow-hidden bg-white p-4 mb-6 print-border">
               <span class="text-xs font-bold text-slate-500 block mb-3 text-center uppercase tracking-wider">Fig 4.3: Generating Kinematic Curves via Conic Slicing</span>
               <svg viewBox="0 0 800 450" width="100%" height="auto" class="rounded-lg bg-white">
@@ -547,18 +604,21 @@
                 <ellipse cx="350" cy="90" rx="73" ry="15" fill="none" stroke="#0ea5e9" stroke-width="3" />
                 <line x1="350" y1="90" x2="520" y2="90" stroke="#0ea5e9" stroke-width="1.5" stroke-dasharray="2" />
                 <circle cx="350" cy="90" r="3" fill="#0ea5e9" />
+                <text x="530" y="94" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Circle (e = 0) - Perpendicular Cut</text>
                 <text x="530" y="94" fill="#0ea5e9" class="vector-label text-xs">Circle (e = 0) - Perpendicular Cut</text>
 
                 <!-- 2. Ellipse -->
                 <ellipse cx="340" cy="140" rx="60" ry="18" fill="none" stroke="#4f46e5" stroke-width="3" transform="rotate(-12 340 140)" />
                 <line x1="340" y1="140" x2="520" y2="140" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="2" />
                 <circle cx="340" cy="140" r="3" fill="#4f46e5" />
+                <text x="530" y="144" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Ellipse (0 &lt; e &lt; 1) - Angled Cut</text>
                 <text x="530" y="144" fill="#4f46e5" class="vector-label text-xs">Ellipse (0 &lt; e &lt; 1) - Angled Cut</text>
 
                 <!-- 3. Parabola -->
                 <path d="M 285 275 Q 350 180 395 285" fill="none" stroke="#f59e0b" stroke-width="3" />
                 <line x1="345" y1="230" x2="520" y2="230" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2" />
                 <circle cx="345" cy="230" r="3" fill="#f59e0b" />
+                <text x="530" y="234" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs">Parabola (e = 1) - Parallel to Side</text>
                 <text x="530" y="234" fill="#f59e0b" class="vector-label text-xs">Parabola (e = 1) - Parallel to Side</text>
 
                 <!-- 4. Hyperbola -->
@@ -566,6 +626,7 @@
                 <path d="M 270 270 Q 320 320 270 370" fill="none" stroke="#ef4444" stroke-width="3" />
                 <line x1="295" y1="80" x2="140" y2="80" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2" />
                 <circle cx="295" cy="80" r="3" fill="#ef4444" />
+                <text x="130" y="84" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-xs" text-anchor="end">Hyperbola (e &gt; 1) - Cuts both nappes</text>
                 <text x="130" y="84" fill="#ef4444" class="vector-label text-xs" text-anchor="end">Hyperbola (e &gt; 1) - Cuts both nappes</text>
               </svg>
             </div>
@@ -594,6 +655,28 @@
                   </svg>
                 </div>
               </div>
+            </div>
+
+            <!-- Example Box -->
+            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl print-border">
+              <h4 class="font-bold text-blue-900 mb-2">Example Problem: Classifying Trajectories</h4>
+              <p class="text-sm text-blue-800 mb-4">A passing rogue comet is tracked and found to have an orbital eccentricity of $e = 1.2$. What is the geometric shape of its trajectory, and will it ever return to periapsis?</p>
+              <div class="bg-white p-4 rounded-xl text-sm font-mono text-slate-700">
+                <p>1. Check bounds: The eccentricity is strictly greater than 1 ($e > 1$).</p>
+                <p>2. Classification: The trajectory is mathematically a $\mathbf{\text{Hyperbola}}$.</p>
+                <p>3. Energy check: A hyperbola means the total specific energy is positive. Therefore, it is unbound and will $\mathbf{\text{never return}}$.</p>
+              </div>
+            </div>
+
+            <!-- Exercise Box -->
+            <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl exercise-box">
+              <h4 class="font-bold text-emerald-900 mb-2">Check Your Understanding</h4>
+              <p class="text-sm text-emerald-800 mb-4">What conic section corresponds to an eccentricity of exactly 1? (Type the one-word shape name)</p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="ex4-input" class="p-2.5 rounded-lg border border-emerald-200 outline-none focus:border-emerald-500 w-full sm:w-1/3 text-sm" placeholder="Shape name...">
+                <button onclick="checkExercise('ex4', 'parabola')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-5 rounded-lg text-sm transition">Validate Answer</button>
+              </div>
+              <p id="ex4-fb" class="mt-3 text-sm font-bold hidden"></p>
             </div>
 
           </div>
@@ -653,6 +736,7 @@
                   <svg viewBox="0 0 400 300" width="100%" height="auto" class="rounded-lg bg-white border border-slate-100">
                     <circle cx="180" cy="150" r="10" fill="#fbbf24" stroke="#d97706" />
                     <circle cx="80" cy="150" r="4" fill="#475569" />
+                    <text x="70" y="154" stroke="#ffffff" stroke-width="4" fill="none" class="vector-label text-[10px]" text-anchor="end">Common Periapsis (rp)</text>
                     <text x="70" y="154" fill="#475569" class="vector-label text-[10px]" text-anchor="end">Common Periapsis (rp)</text>
                     
                     <!-- Circle r=100 (Center 180,150) -->
@@ -718,37 +802,33 @@
                     <div class="flex justify-between"><span class="text-slate-500">Specific Kinetic:</span><span id="profKinetic" class="font-bold text-emerald-600">---</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">Specific Potential:</span><span id="profPotential" class="font-bold text-red-500">---</span></div>
                     <div class="flex justify-between border-t border-slate-100 pt-1.5 font-bold"><span class="text-slate-800">Total Net Energy (\(E\)):</span><span id="profTotal" class="text-indigo-600">---</span></div>
-                  <div id="quiz-score" class="mt-6 p-4 rounded-xl text-center hidden"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <!-- General AI Tutor Section -->
-            <div class="mt-8 border border-indigo-200 rounded-xl overflow-hidden shadow-sm no-print">
-              <div class="bg-indigo-600 text-white p-4 font-bold flex items-center gap-2">
-                <i class="fa-solid fa-robot"></i> OmniBot Offline AI Tutor
-              </div>
-              <div class="p-4 bg-indigo-50/30">
-                <p class="text-sm text-slate-600 mb-3">Ask a general question about orbital mechanics. I run fully locally using heuristic keyword matching!</p>
-                <div class="flex gap-2">
-                  <input type="text" id="ai-query-input" class="flex-grow border border-slate-300 rounded-lg p-2.5 text-sm outline-none focus:border-indigo-600 shadow-sm" placeholder="e.g. What happens to velocity at apoapsis?" onkeydown="if(event.key==='Enter') askAITutor()">
-                  <button onclick="askAITutor()" class="px-4 py-2 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition">Ask AI</button>
-                </div>
-                <div id="ai-tutor-response" class="mt-4 empty:hidden"></div>
+            <!-- Example Box -->
+            <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl print-border">
+              <h4 class="font-bold text-blue-900 mb-2">Example Problem: Energy Bounds</h4>
+              <p class="text-sm text-blue-800 mb-4">A distant celestial body is measured with a specific mechanical energy of $\varepsilon = -50 \text{ J/kg}$. Is this orbit bound or unbound?</p>
+              <div class="bg-white p-4 rounded-xl text-sm font-mono text-slate-700">
+                <p>1. Analyze value: $\varepsilon = K + U = -50$.</p>
+                <p>2. Interpret bounds: Because energy is mathematically negative ($\varepsilon < 0$), the kinetic component is insufficient to overcome the potential well.</p>
+                <p>3. Conclusion: The orbit is $\mathbf{Bound}$ (closed geometry like an ellipse or circle).</p>
               </div>
             </div>
-            
-            <script src="knowledge_base.js"></script>
-            <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
-            <script>
-              function askAITutor() {
-                const input = document.getElementById('ai-query-input');
-                const out = document.getElementById('ai-tutor-response');
-                if(!input.value.trim()) return;
-                const responseHtml = window.queryAI ? window.queryAI(input.value) : '<div class="text-rose-600">AI Database not loaded.</div>';
-                out.innerHTML = `<div class="mb-2 text-xs font-bold text-slate-400 uppercase">You asked: ${input.value}</div>${responseHtml}`;
-                if(window.MathJax) MathJax.typesetPromise();
-                input.value = '';
-              }
-            </script>
+
+            <!-- Exercise Box -->
+            <div class="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl exercise-box">
+              <h4 class="font-bold text-emerald-900 mb-2">Check Your Understanding</h4>
+              <p class="text-sm text-emerald-800 mb-4">If a comet possesses a specific orbital energy of $\varepsilon = 15 \text{ J/kg}$, is the orbit bound or unbound? (Type one word)</p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="ex5-input" class="p-2.5 rounded-lg border border-emerald-200 outline-none focus:border-emerald-500 w-full sm:w-1/3 text-sm" placeholder="Type bound or unbound...">
+                <button onclick="checkExercise('ex5', 'unbound')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-5 rounded-lg text-sm transition">Validate Answer</button>
+              </div>
+              <p id="ex5-fb" class="mt-3 text-sm font-bold hidden"></p>
+            </div>
+
           </div>
         </article>
 
@@ -802,22 +882,29 @@
         <!-- ---------------- CHAPTER 7: COMPREHENSION QUIZ ---------------- -->
         <article id="quiz" class="scroll-mt-20 print-border no-print">
           <div class="space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-              <h2 class="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                <span class="w-8 h-8 rounded-lg bg-indigo-100 text-brand-600 flex items-center justify-center font-bold text-base">7</span>
-                Interactive Comprehension Quiz
-              </h2>
-              <button onclick="initQuiz()" class="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold rounded-xl text-xs transition shadow-sm">
-                Generate New Quiz
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-brand-600 flex items-center justify-center font-bold text-base">7</span>
+              Interactive Comprehension Quiz
+            </h2>
+            
+            <div id="quiz-intro-box" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 text-center space-y-4">
+              <h3 class="text-xl font-bold text-slate-900">Ready to test your knowledge?</h3>
+              <p class="text-sm text-slate-600 max-w-md mx-auto">This engine generates 10 random questions from a library of 100, progressively increasing in difficulty from basic concepts to complex computational math.</p>
+              <button onclick="startQuizUI()" class="mt-4 px-8 py-3 bg-brand-600 text-white font-bold rounded-xl hover:bg-brand-700 active:scale-95 transition shadow-sm inline-block">
+                Start Comprehensive Quiz
               </button>
             </div>
-            <p class="text-sm text-slate-600 leading-relaxed">
-              Test your knowledge! This quiz generates 10 random questions from a library of 100, progressively increasing in difficulty from basic definitions to complex reasoning. 
-            </p>
-            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8">
+
+            <div id="quiz-main-content" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 md:p-8 hidden">
+              <div class="flex justify-between items-center border-b border-slate-200 pb-4 mb-4">
+                <h3 class="font-bold text-slate-900">Generated Quiz Set</h3>
+                <button onclick="initQuiz()" class="px-3 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold rounded-lg text-xs transition shadow-sm">
+                  Roll New Questions
+                </button>
+              </div>
               <div id="quiz-container" class="space-y-2"></div>
               <div class="mt-6 flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-slate-100">
-                <button onclick="submitQuiz()" class="w-full md:w-auto px-8 py-3 bg-brand-600 text-white font-bold rounded-xl hover:bg-brand-700 active:scale-95 transition shadow-sm">
+                <button onclick="submitQuiz()" class="w-full md:w-auto px-8 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 active:scale-95 transition shadow-sm">
                   Submit Answers
                 </button>
                 <div id="quiz-score" class="hidden text-base bg-indigo-50 border border-indigo-100 text-indigo-900 px-6 py-3 rounded-xl"></div>
@@ -1183,11 +1270,16 @@
           keplerPointsGroup.appendChild(circle);
 
           const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          
+          // Fixed Staggered Label Algorithm for overlapping
           let yOffset = 3;
           let xOffset = 6;
-          if (index === 0) { yOffset = -5; xOffset = -5; text.setAttribute("text-anchor", "end"); } 
-          if (index === 1) { yOffset = 12; xOffset = 0; text.setAttribute("text-anchor", "middle"); } 
-          if (index === 2) { yOffset = 5; xOffset = 8; } 
+          text.setAttribute("text-anchor", "start");
+          
+          if (index === 0) { yOffset = -5; xOffset = -5; text.setAttribute("text-anchor", "end"); } // Mercury
+          if (index === 1) { yOffset = 12; xOffset = 0; text.setAttribute("text-anchor", "middle"); } // Venus
+          if (index === 2) { yOffset = 10; xOffset = 15; } // Earth
+          if (index === 3) { yOffset = -5; xOffset = 5; } // Mars
           
           text.setAttribute("x", Math.min(x + xOffset, 260));
           text.setAttribute("y", Math.max(y + yOffset, 25));
@@ -1215,6 +1307,32 @@
         drawKeplerGraph();
         custBodyA.value = '';
       });
+    }
+
+    // --- CHECK YOUR UNDERSTANDING LOGIC ---
+    function checkExercise(id, expectedAns) {
+      const el = document.getElementById(`${id}-input`);
+      const fb = document.getElementById(`${id}-fb`);
+      if(!el || !fb) return;
+
+      const userVal = el.value.trim().toLowerCase();
+      fb.classList.remove('hidden', 'text-emerald-600', 'text-rose-600');
+      
+      let isCorrect = false;
+      if(typeof expectedAns === 'number') {
+        const num = parseFloat(userVal);
+        if (!isNaN(num) && Math.abs(num - expectedAns) < 0.05) isCorrect = true;
+      } else {
+        if(userVal === expectedAns.toLowerCase()) isCorrect = true;
+      }
+
+      if(isCorrect) {
+        fb.innerText = "✓ Correct! Great job.";
+        fb.classList.add('text-emerald-600');
+      } else {
+        fb.innerText = `✗ Incorrect. Try again or check the math above.`;
+        fb.classList.add('text-rose-600');
+      }
     }
 
     // --- 3. INTERACTIVE 5: CONIC SLICER ---
@@ -1420,120 +1538,131 @@
       }, 4000);
     }
 
-    // --- 7. INTERACTIVE QUIZ LOGIC (100 QUESTION LIBRARY) ---
+    // --- 7. INTERACTIVE QUIZ LOGIC (100 QUESTION LIBRARY - 60% MATH, 40% CONCEPT) ---
     const qBank = [
-      // MC Diff 1 (Concepts)
-      {t:'mc', d:1, q:"What geometric shape describes a bound planetary orbit?", o:["Perfect Square","Perfect Circle","Ellipse","Straight Line"], a:2},
+      // Diff 1 Concepts (8)
+      {t:'mc', d:1, q:"What geometric shape describes a bound planetary orbit?", o:["Square","Circle","Ellipse","Straight Line"], a:2},
       {t:'mc', d:1, q:"What lies at the primary focus of Earth's orbit?", o:["The Moon","Empty Space","The Sun","Mars"], a:2},
-      {t:'mc', d:1, q:"What lies at the secondary (empty) focus of an orbit?", o:["Nothing","A star","A black hole","The barycenter"], a:0},
-      {t:'mc', d:1, q:"What term describes the point of closest approach to the star?", o:["Apoapsis","Periapsis","Focus","Semi-latus rectum"], a:1},
-      {t:'mc', d:1, q:"What term describes the point of furthest distance from the star?", o:["Apoapsis","Periapsis","Zenith","Nadir"], a:0},
-      {t:'mc', d:1, q:"Which variable denotes the semi-major axis?", o:["e","c","b","a"], a:3},
-      {t:'mc', d:1, q:"Which variable denotes orbital eccentricity?", o:["e","a","b","c"], a:0},
-      {t:'mc', d:1, q:"A perfectly circular orbit has an eccentricity equal to:", o:["1","0.5","0","-1"], a:2},
-      {t:'mc', d:1, q:"Who formulated the three laws of planetary motion?", o:["Newton","Einstein","Galileo","Kepler"], a:3},
-      {t:'mc', d:1, q:"What provides the central force for planetary orbits?", o:["Magnetism","Gravity","Friction","Strong Nuclear Force"], a:1},
-      // MC Diff 2 (Kinematics)
-      {t:'mc', d:2, q:"According to Kepler's Second Law, a planet sweeps out equal what?", o:["Volumes in equal time","Areas in equal time","Distances in equal time","Mass in equal time"], a:1},
-      {t:'mc', d:2, q:"Where is an orbiting body travelling the fastest?", o:["At apoapsis","At periapsis","At the semi-minor axis","Speed is always constant"], a:1},
-      {t:'mc', d:2, q:"Where is an orbiting body travelling the slowest?", o:["At apoapsis","At periapsis","At the semi-minor axis","At the focus"], a:0},
-      {t:'mc', d:2, q:"Linear eccentricity (c) is the distance between:", o:["The two foci","The center and a focus","Periapsis and apoapsis","The planet and the sun"], a:1},
-      {t:'mc', d:2, q:"What angle does the velocity vector make with gravity at periapsis?", o:["0 degrees","45 degrees","90 degrees","180 degrees"], a:2},
-      {t:'mc', d:2, q:"What angle does the velocity vector make with gravity at apoapsis?", o:["0 degrees","45 degrees","90 degrees","180 degrees"], a:2},
-      {t:'mc', d:2, q:"An ellipse must have an eccentricity between:", o:["0 and 1","1 and 2","-1 and 0","It can be any number"], a:0},
-      {t:'mc', d:2, q:"If the semi-major axis increases, what happens to the orbital period?", o:["It decreases","It stays the same","It increases","It drops to zero"], a:2},
-      {t:'mc', d:2, q:"Kepler's First Law disproved what ancient belief?", o:["Gravity is an illusion","Planets orbit in perfect circles","The sun is hot","Space is a vacuum"], a:1},
-      {t:'mc', d:2, q:"Gravity is an inverse-square law, meaning force decreases with the square of:", o:["Mass","Time","Distance","Velocity"], a:2},
-      // MC Diff 3 (Energy & Momentum)
-      {t:'mc', d:3, q:"Specific orbital energy is the sum of specific kinetic energy and:", o:["Specific thermal energy","Specific potential energy","Total mass","Angular momentum"], a:1},
-      {t:'mc', d:3, q:"For an elliptical orbit, the specific mechanical energy must be:", o:["Positive","Exactly Zero","Negative","Complex"], a:2},
-      {t:'mc', d:3, q:"Which vector quantity remains strictly conserved throughout an unperturbed orbit?", o:["Velocity","Position","Acceleration","Angular Momentum"], a:3},
-      {t:'mc', d:3, q:"At what point in the orbit is gravitational potential energy highest (least negative)?", o:["Periapsis","Apoapsis","Semi-minor axis vertex","Focus"], a:1},
-      {t:'mc', d:3, q:"At what point in the orbit is kinetic energy the highest?", o:["Periapsis","Apoapsis","Semi-minor axis vertex","Focus"], a:0},
-      {t:'mc', d:3, q:"Kepler's Third Law relates Period Squared to what?", o:["Semi-major axis cubed","Eccentricity squared","Mass cubed","Velocity squared"], a:0},
-      {t:'mc', d:3, q:"The angular momentum vector of an orbit is always:", o:["Parallel to velocity","Pointing to the star","Perpendicular to the orbital plane","Zero"], a:2},
-      {t:'mc', d:3, q:"If a satellite fires its engine strictly forward (prograde) at periapsis, what increases?", o:["Periapsis altitude","Apoapsis altitude","Orbital inclination","Nothing"], a:1},
-      {t:'mc', d:3, q:"What causes a planet to accelerate as it moves from apoapsis to periapsis?", o:["Magnetic pull","Solar wind","Gravity acting partly in the direction of motion","Friction"], a:2},
-      {t:'mc', d:3, q:"The semi-minor axis (b) can be calculated using a and e as:", o:["b = a*e","b = a*(1-e)","b = a*sqrt(1-e^2)","b = a/e"], a:2},
-      // MC Diff 4 (Conics & Vis-Viva)
-      {t:'mc', d:4, q:"The Vis-Viva equation allows you to calculate orbital velocity strictly as a function of:", o:["Time","Radius from the focal body","Orbital inclination","Planetary mass alone"], a:1},
-      {t:'mc', d:4, q:"If a spacecraft's specific energy is exactly zero, what shape is its trajectory?", o:["Circle","Ellipse","Parabola","Hyperbola"], a:2},
-      {t:'mc', d:4, q:"Which conic section describes an unbound, escape trajectory with positive energy?", o:["Circle","Ellipse","Parabola","Hyperbola"], a:3},
-      {t:'mc', d:4, q:"In the Vis-Viva equation, as radius (r) approaches infinity for a parabolic orbit, velocity approaches:", o:["Infinity","Zero","Speed of light","Circular velocity"], a:1},
-      {t:'mc', d:4, q:"A Hohmann transfer is most fuel-efficient because thrust is applied parallel to velocity at:", o:["Any random point","Apoapsis and periapsis","The semi-minor axis","A 45-degree angle"], a:1},
-      {t:'mc', d:4, q:"Slicing a 3D double cone parallel to its sloping side produces what geometric curve?", o:["Hyperbola","Parabola","Ellipse","Circle"], a:1},
-      {t:'mc', d:4, q:"Slicing a 3D double cone vertically through both nappes produces what curve?", o:["Hyperbola","Parabola","Ellipse","Circle"], a:0},
-      {t:'mc', d:4, q:"The Runge-Lenz vector is a constant of motion that points exactly toward:", o:["The empty focus","The central star","Apoapsis","Periapsis"], a:3},
-      {t:'mc', d:4, q:"In a two-body system, how many Lagrange points of gravitational equilibrium exist?", o:["3","4","5","6"], a:2},
-      {t:'mc', d:4, q:"The ratio of escape velocity to circular velocity at the same radius is:", o:["2","sqrt(2)","1.5","pi"], a:1},
-      // MC Diff 5 (Advanced Mechanics)
-      {t:'mc', d:5, q:"If you instantly double a satellite's kinetic energy while in a circular orbit, what happens?", o:["It becomes a larger circle","It achieves exactly escape velocity (Parabola)","It spirals into the sun","Nothing"], a:1},
-      {t:'mc', d:5, q:"The specific angular momentum (h) relates to the semi-latus rectum (p) by:", o:["p = h^2 / GM","p = h / GM","p = GM / h^2","p = h * GM"], a:0},
-      {t:'mc', d:5, q:"Which Lagrange points are gravitationally stable (objects naturally stay there)?", o:["L1 and L2","L2 and L3","L4 and L5","All of them"], a:2},
-      {t:'mc', d:5, q:"If the semi-major axis is completely determined by total specific energy, what determines eccentricity?", o:["Mass","Angular momentum","Time","Nothing"], a:1},
-      {t:'mc', d:5, q:"What is the True Anomaly at apoapsis?", o:["0 degrees","90 degrees","180 degrees","270 degrees"], a:2},
-      {t:'mc', d:5, q:"To alter the inclination of an orbital plane efficiently, where should you burn?", o:["Periapsis","Apoapsis","At the orbital nodes","Anywhere"], a:2},
-      {t:'mc', d:5, q:"If a comet enters the solar system with hyperbolic excess velocity, its eccentricity is:", o:["e = 0","0 < e < 1","e = 1","e > 1"], a:3},
-      {t:'mc', d:5, q:"Because angular momentum is conserved, the cross product of r and v is:", o:["Zero","A constant vector","Linearly increasing","Oscillating"], a:1},
-      {t:'mc', d:5, q:"In an elliptical orbit, the scalar dot product of velocity and force (v • F) is zero:", o:["Everywhere","Nowhere","Only at periapsis and apoapsis","Only at the semi-minor axis"], a:2},
-      {t:'mc', d:5, q:"Which element defines the orientation of the ellipse within its 2D plane?", o:["Argument of Periapsis","Inclination","Semi-major axis","True Anomaly"], a:0},
-      
-      // SA Diff 1 (Vocab)
-      {t:'sa', d:1, q:"What geometric shape is the orbit of the Earth? (One word)", a:["ellipse", "elliptical"]},
-      {t:'sa', d:1, q:"What object is located at the primary focus of Earth's orbit? (One word)", a:["sun"]},
       {t:'sa', d:1, q:"What is the eccentricity of a perfect circle?", a:0},
-      {t:'sa', d:1, q:"What is the point of closest approach to the Sun called?", a:["periapsis", "perihelion"]},
+      {t:'sa', d:1, q:"What fundamental force keeps planets in orbit? (One word)", a:["gravity"]},
+      {t:'mc', d:1, q:"What term describes the point of closest approach to the star?", o:["Apoapsis","Periapsis","Focus","Semi-latus rectum"], a:1},
       {t:'sa', d:1, q:"What is the point of furthest distance from the Sun called?", a:["apoapsis", "aphelion"]},
+      {t:'mc', d:1, q:"Which variable denotes the semi-major axis?", o:["e","c","b","a"], a:3},
       {t:'sa', d:1, q:"How many focal points does an ellipse have?", a:2},
-      {t:'sa', d:1, q:"What fundamental force keeps planets in orbit?", a:["gravity"]},
-      {t:'sa', d:1, q:"What is the last name of the scientist who formulated the 3 laws of planetary motion?", a:["kepler"]},
-      {t:'sa', d:1, q:"What is the last name of the scientist who formulated the law of universal gravitation?", a:["newton"]},
-      {t:'sa', d:1, q:"Is the secondary focus of a planetary orbit filled or empty?", a:["empty"]},
-      // SA Diff 2 (Basic Math)
-      {t:'sa', d:2, q:"If semi-major axis (a) = 5 and eccentricity (e) = 0, what is the semi-minor axis (b)?", a:5},
-      {t:'sa', d:2, q:"If periapsis is 2 AU and apoapsis is 4 AU, what is the semi-major axis in AU?", a:3},
-      {t:'sa', d:2, q:"If periapsis is 2 AU and apoapsis is 4 AU, what is the focal distance (c) in AU?", a:1},
-      {t:'sa', d:2, q:"If semi-major axis (a) = 10 and eccentricity (e) = 0.5, what is the focal distance (c)?", a:5},
-      {t:'sa', d:2, q:"If a=10 and e=0.1, what is the periapsis distance (a*(1-e))?", a:9},
-      {t:'sa', d:2, q:"If a=10 and e=0.1, what is the apoapsis distance (a*(1+e))?", a:11},
+      // Diff 1 Math (12)
+      {t:'sa', d:1, q:"If a=10 and e=0, what is b?", a:10},
+      {t:'sa', d:1, q:"If a=5 and e=0, what is b?", a:5},
+      {t:'mc', d:1, q:"If a=10 and e=0.1, find the focal distance c (c=ae).", o:["1","2","10","0.1"], a:0},
+      {t:'sa', d:1, q:"If a=20 and e=0.5, find focal distance c.", a:10},
+      {t:'sa', d:1, q:"If a=100 and e=0.2, find focal distance c.", a:20},
+      {t:'mc', d:1, q:"If a=10 and e=0.1, what is periapsis r_p = a(1-e)?", o:["10","9","11","1"], a:1},
+      {t:'sa', d:1, q:"If a=50 and e=0.2, what is r_p = a(1-e)?", a:40},
+      {t:'sa', d:1, q:"If a=20 and e=0.5, what is r_p?", a:10},
+      {t:'mc', d:1, q:"If a=10 and e=0.1, what is apoapsis r_a = a(1+e)?", o:["10","9","11","1"], a:2},
+      {t:'sa', d:1, q:"If a=50 and e=0.2, what is r_a?", a:60},
+      {t:'sa', d:1, q:"If a=20 and e=0.5, what is r_a?", a:30},
+      {t:'sa', d:1, q:"If r_p = 4 and r_a = 6, what is the semi-major axis a?", a:5},
+
+      // Diff 2 Concepts (8)
+      {t:'mc', d:2, q:"According to Kepler's Second Law, a planet sweeps out equal:", o:["Volumes","Areas","Distances","Masses"], a:1},
+      {t:'mc', d:2, q:"Where is an orbiting body travelling the fastest?", o:["Apoapsis","Periapsis","Semi-minor vertex","Constant"], a:1},
       {t:'sa', d:2, q:"What is the angle (in degrees) between velocity and gravity for a circular orbit?", a:90},
+      {t:'mc', d:2, q:"What angle does the velocity vector make with gravity at apoapsis?", o:["0","45","90","180"], a:2},
       {t:'sa', d:2, q:"If an orbit has e=1, what conic section is it?", a:["parabola"]},
+      {t:'mc', d:2, q:"Gravity is an inverse-square law. Force decreases with the square of:", o:["Mass","Time","Distance","Velocity"], a:2},
       {t:'sa', d:2, q:"If an orbit has e=1.5, what conic section is it?", a:["hyperbola"]},
-      {t:'sa', d:2, q:"If the center of an ellipse is at x=0, and a focus is at x=3, what is 'c'?", a:3},
-      // SA Diff 3 (Kepler 3 Math)
-      {t:'sa', d:3, q:"By Kepler's 3rd Law, if a = 4 AU, what is the Period (T) in years?", a:8},
-      {t:'sa', d:3, q:"By Kepler's 3rd Law, if a = 9 AU, what is the Period (T) in years?", a:27},
-      {t:'sa', d:3, q:"By Kepler's 3rd Law, if T = 64 years, what is the semi-major axis (a) in AU?", a:16},
-      {t:'sa', d:3, q:"By Kepler's 3rd Law, if T = 125 years, what is the semi-major axis (a) in AU?", a:25},
-      {t:'sa', d:3, q:"If you double the mass of the satellite, how much does its orbital period change? (Enter 0 if no change)", a:0},
-      {t:'sa', d:3, q:"What is the kinetic energy at infinity for a parabolic orbit? (Enter a number)", a:0},
+      {t:'mc', d:2, q:"An ellipse must have an eccentricity bounded between:", o:["0 and 1","1 and 2","-1 and 0","0 and infinity"], a:0},
+      // Diff 2 Math (12)
+      {t:'sa', d:2, q:"If r_p = 10 and r_a = 30, what is a?", a:20},
+      {t:'sa', d:2, q:"If r_p = 100 and r_a = 300, what is a?", a:200},
+      {t:'mc', d:2, q:"If r_p = 10 and r_a = 30, what is focal distance c? c = (ra-rp)/2", o:["10","20","30","40"], a:0},
+      {t:'sa', d:2, q:"If r_p = 20 and r_a = 80, what is c?", a:30},
+      {t:'sa', d:2, q:"If a=10 and c=2, what is e?", a:0.2},
+      {t:'sa', d:2, q:"If a=50 and c=10, what is e?", a:0.2},
+      {t:'mc', d:2, q:"If a=5 and b=4, what is c? (c^2 = a^2 - b^2)", o:["1","2","3","4"], a:2},
+      {t:'sa', d:2, q:"If a=13 and b=12, what is c?", a:5},
+      {t:'sa', d:2, q:"If a=10 and c=6, what is b?", a:8},
+      {t:'mc', d:2, q:"Kepler 3: If a = 4, what is T? (T^2 = a^3)", o:["4","8","16","64"], a:1},
+      {t:'sa', d:2, q:"Kepler 3: If a = 9, what is T?", a:27},
+      {t:'sa', d:2, q:"Kepler 3: If T = 8, what is a?", a:4},
+
+      // Diff 3 Concepts (8)
+      {t:'mc', d:3, q:"Specific orbital energy is the sum of specific kinetic energy and:", o:["Thermal","Potential","Mass","Momentum"], a:1},
+      {t:'mc', d:3, q:"For an elliptical orbit, the specific mechanical energy must be:", o:["Positive","Zero","Negative","Complex"], a:2},
+      {t:'sa', d:3, q:"If total specific energy is -30 J/kg, is the orbit bound or unbound?", a:["bound"]},
+      {t:'mc', d:3, q:"Which vector quantity remains strictly conserved throughout an unperturbed orbit?", o:["Velocity","Position","Acceleration","Angular Momentum"], a:3},
       {t:'sa', d:3, q:"At what true anomaly (in degrees) is the planet closest to the star?", a:0},
+      {t:'mc', d:3, q:"The angular momentum vector of an orbit is always:", o:["Parallel to v","To the star","Perpendicular to orbital plane","Zero"], a:2},
       {t:'sa', d:3, q:"At what true anomaly (in degrees) is the planet furthest from the star?", a:180},
-      {t:'sa', d:3, q:"If orbital radius r equals semi-major axis a, what is specific energy? (Type equation: -GM/2a)", a:["-gm/2a", "-gm/(2a)"]},
-      {t:'sa', d:3, q:"How many stable Lagrange points exist in the Earth-Sun system?", a:2},
-      // SA Diff 4 (Momentum & Math Ratios)
-      {t:'sa', d:4, q:"Conservation of momentum: If rp=1, vp=10, and ra=2, what is va?", a:5},
-      {t:'sa', d:4, q:"Conservation of momentum: If rp=2, vp=6, and ra=4, what is va?", a:3},
-      {t:'sa', d:4, q:"Conservation of momentum: If va=2, ra=10, and vp=5, what is rp?", a:4},
-      {t:'sa', d:4, q:"Conservation of momentum: If va=3, ra=12, and vp=9, what is rp?", a:4},
-      {t:'sa', d:4, q:"If specific kinetic energy = 50 J/kg and specific potential = -80 J/kg, what is the total specific energy?", a:-30},
-      {t:'sa', d:4, q:"If total specific energy is -30 J/kg, is the orbit bound or unbound? (Type one word)", a:["bound"]},
-      {t:'sa', d:4, q:"If total specific energy is 10 J/kg, is the orbit bound or unbound? (Type one word)", a:["unbound"]},
-      {t:'sa', d:4, q:"If total specific energy is 0 J/kg, what conic shape is the trajectory?", a:["parabola"]},
+      {t:'mc', d:3, q:"If a satellite fires its engine straight forward at periapsis, what increases?", o:["Periapsis","Apoapsis","Inclination","Nothing"], a:1},
+      // Diff 3 Math (12)
+      {t:'sa', d:3, q:"Kepler 3: If T = 27, what is a?", a:9},
+      {t:'sa', d:3, q:"Kepler 3: If a = 100, what is T?", a:1000},
+      {t:'mc', d:3, q:"Conservation of momentum: If r_p=1, v_p=10, r_a=2. Find v_a.", o:["2","5","10","20"], a:1},
+      {t:'sa', d:3, q:"Mom: If r_p=2, v_p=6, r_a=4. Find v_a.", a:3},
+      {t:'sa', d:3, q:"Mom: If r_p=5, v_p=20, r_a=10. Find v_a.", a:10},
+      {t:'mc', d:3, q:"Mom: If v_a=2, r_a=10, v_p=5. Find r_p.", o:["2","4","5","10"], a:1},
+      {t:'sa', d:3, q:"Mom: If v_a=3, r_a=12, v_p=9. Find r_p.", a:4},
+      {t:'sa', d:3, q:"Mom: If v_a=10, r_a=50, v_p=25. Find r_p.", a:20},
+      {t:'mc', d:3, q:"Energy: If K = 50 and U = -80. Find E.", o:["-130","-30","30","130"], a:1},
+      {t:'sa', d:3, q:"Energy: If K = 200 and U = -250. Find E.", a:-50},
+      {t:'sa', d:3, q:"Energy: If E = -40 and U = -100. Find K.", a:60},
+      {t:'sa', d:3, q:"Energy: If E = -10 and K = 30. Find U.", a:-40},
+
+      // Diff 4 Concepts (8)
+      {t:'mc', d:4, q:"If specific energy is exactly zero, what shape is the trajectory?", o:["Circle","Ellipse","Parabola","Hyperbola"], a:2},
+      {t:'sa', d:4, q:"If total specific energy is 10 J/kg, is the orbit bound or unbound?", a:["unbound"]},
+      {t:'mc', d:4, q:"Which conic section describes an unbound, escape trajectory with E > 0?", o:["Circle","Ellipse","Parabola","Hyperbola"], a:3},
+      {t:'sa', d:4, q:"If you slice a cone vertically hitting both top and bottom, what shape is formed?", a:["hyperbola"]},
+      {t:'mc', d:4, q:"In the Vis-Viva equation, as r approaches infinity for a parabolic orbit, v approaches:", o:["Infinity","Zero","C","v_circ"], a:1},
       {t:'sa', d:4, q:"If you slice a cone perfectly parallel to its base, what shape do you get?", a:["circle"]},
-      {t:'sa', d:4, q:"If you slice a cone vertically so it hits both the top and bottom halves, what shape is formed?", a:["hyperbola"]},
-      // SA Diff 5 (Vis-Viva & Limits)
-      {t:'sa', d:5, q:"If a satellite in a circular orbit of speed V increases its speed by a factor of 1.414 (sqrt 2), what shape does the orbit become?", a:["parabola"]},
-      {t:'sa', d:5, q:"According to Vis-Viva, if r = 2a, what is the velocity? (Enter a number)", a:0},
-      {t:'sa', d:5, q:"For an ellipse, the value of (1+e)/(1-e) is the ratio of velocity at periapsis to velocity at what point?", a:["apoapsis", "aphelion"]},
-      {t:'sa', d:5, q:"If the semi-latus rectum p = 8 and e = 0, what is the radius r everywhere?", a:8},
-      {t:'sa', d:5, q:"What is the value of the dot product between velocity and gravity vectors at periapsis?", a:0},
-      {t:'sa', d:5, q:"If an orbit has an inclination of 0 degrees, it perfectly aligns with what plane?", a:["reference", "equatorial", "equator", "reference plane", "equatorial plane"]},
-      {t:'sa', d:5, q:"What vector always points from the central body toward the periapsis point?", a:["runge-lenz", "runge lenz", "eccentricity", "eccentricity vector", "runge-lenz vector"]},
-      {t:'sa', d:5, q:"What transfer orbit uses exactly two tangent burns to move between circular orbits?", a:["hohmann", "hohmann transfer"]},
-      {t:'sa', d:5, q:"Is torque in an unperturbed orbital system positive, negative, or zero?", a:0},
-      {t:'sa', d:5, q:"If a satellite has positive total energy, will it ever return to periapsis? (yes/no)", a:["no"]}
+      {t:'mc', d:4, q:"Slicing a 3D cone parallel to its sloping side produces:", o:["Hyperbola","Parabola","Ellipse","Circle"], a:1},
+      {t:'sa', d:4, q:"How many stable Lagrange points exist in the Earth-Sun system?", a:2},
+      // Diff 4 Math (12)
+      {t:'mc', d:4, q:"Vis-Viva: If r = a, v = sqrt(GM(2/a - 1/a)). This simplifies to:", o:["sqrt(GM/a)","sqrt(2GM/a)","GM/a","0"], a:0},
+      {t:'sa', d:4, q:"If GM=100 and circular r=4. Find v_circ (sqrt(GM/r)).", a:5},
+      {t:'sa', d:4, q:"If GM=144 and circular r=9. Find v_circ.", a:4},
+      {t:'mc', d:4, q:"Escape Velocity: v_esc = sqrt(2GM/r). If GM=18 and r=4. Find v_esc.", o:["3","4","6","9"], a:0},
+      {t:'sa', d:4, q:"If GM=50 and r=4. Find v_esc.", a:5},
+      {t:'sa', d:4, q:"If GM=200 and r=16. Find v_esc.", a:5},
+      {t:'mc', d:4, q:"Ratio: If v_circ = 10, what is v_esc? (v_esc = v_circ * sqrt(2))", o:["10","14.14","20","100"], a:1},
+      {t:'sa', d:4, q:"Latus Rectum: If a=10, e=0.5. Find p = a(1-e^2).", a:7.5},
+      {t:'sa', d:4, q:"Latus Rectum: If a=20, e=0.5. Find p.", a:15},
+      {t:'sa', d:4, q:"Latus Rectum: If a=100, e=0.2. Find p.", a:96},
+      {t:'mc', d:4, q:"At theta=90 deg, cos(90)=0. So r(90) = p / (1+0). If p=15, r(90)=?", o:["0","1","15","30"], a:2},
+      {t:'sa', d:4, q:"If p=25, what is r at theta=90 deg?", a:25},
+
+      // Diff 5 Concepts (8)
+      {t:'mc', d:5, q:"If you instantly double a satellite's kinetic energy in a circular orbit, what happens?", o:["Larger circle","Parabolic escape","Spiral in","Nothing"], a:1},
+      {t:'sa', d:5, q:"What vector points from the central body toward the periapsis point?", a:["runge-lenz", "eccentricity"]},
+      {t:'mc', d:5, q:"If semi-major axis is determined by energy, what determines eccentricity?", o:["Mass","Angular momentum","Time","Nothing"], a:1},
+      {t:'sa', d:5, q:"If an orbit has an inclination of 0 degrees, it aligns with what plane?", a:["reference", "equatorial"]},
+      {t:'mc', d:5, q:"To alter the inclination of an orbital plane efficiently, where should you burn?", o:["Periapsis","Apoapsis","At the orbital nodes","Anywhere"], a:2},
+      {t:'sa', d:5, q:"What transfer orbit uses exactly two tangent burns to move between circles?", a:["hohmann"]},
+      {t:'mc', d:5, q:"In an elliptical orbit, the dot product of velocity and force (v • F) is zero:", o:["Everywhere","Nowhere","Only at periapsis/apoapsis","Only at b"], a:2},
+      {t:'sa', d:5, q:"If a satellite has positive total energy, will it return to periapsis? (yes/no)", a:["no"]},
+      // Diff 5 Math (12)
+      {t:'sa', d:5, q:"If v_esc = 14.14, what is v_circ? (Divide by 1.414)", a:10},
+      {t:'sa', d:5, q:"If v_esc = 141.4, what is v_circ?", a:100},
+      {t:'mc', d:5, q:"Max Velocity v_p = sqrt(GM/a * (1+e)/(1-e)). If GM/a=100, e=0.6. Find v_p.", o:["10","20","40","400"], a:1},
+      {t:'sa', d:5, q:"If GM/a=25, e=0.6. Find v_p.", a:10},
+      {t:'sa', d:5, q:"If GM/a=9, e=0.8. Find v_p.", a:9},
+      {t:'mc', d:5, q:"Min Velocity v_a = sqrt(GM/a * (1-e)/(1+e)). If GM/a=100, e=0.6. Find v_a.", o:["2.5","5","10","25"], a:1},
+      {t:'sa', d:5, q:"If GM/a=100, e=0.8. Find v_a.", a:3.33},
+      {t:'sa', d:5, q:"If GM/a=25, e=0.6. Find v_a.", a:2.5},
+      {t:'mc', d:5, q:"Angular momentum h = sqrt(GM * p). If GM=10, p=10. Find h.", o:["10","100","20","0"], a:0},
+      {t:'sa', d:5, q:"If GM=50, p=2. Find h.", a:10},
+      {t:'sa', d:5, q:"If GM=100, p=4. Find h.", a:20},
+      {t:'sa', d:5, q:"If GM=20, p=5. Find h.", a:10}
     ];
+
+    function startQuizUI() {
+      const intro = document.getElementById('quiz-intro-box');
+      const main = document.getElementById('quiz-main-content');
+      if (intro) intro.classList.add('hidden');
+      if (main) main.classList.remove('hidden');
+      initQuiz();
+    }
 
     let currentQuiz = [];
 
@@ -1585,7 +1714,6 @@
 
     function submitQuiz() {
       let score = 0;
-      let missedTopics = [];
       currentQuiz.forEach((q, index) => {
         const fb = document.getElementById(`feedback-${index}`);
         const box = document.getElementById(`qbox-${index}`);
@@ -1616,23 +1744,17 @@
           
           if (isCorrect) {
             score++;
-            fb.innerHTML = "✓ Correct!";
+            fb.innerText = "✓ Correct!";
             fb.classList.add('text-emerald-700', 'bg-emerald-100');
             box.classList.replace('border-slate-200', 'border-emerald-300');
             box.classList.add('bg-emerald-50/30');
           } else {
             let ansText = q.t === 'mc' ? q.o[q.a] : (Array.isArray(q.a) ? q.a[0] : q.a);
-            let aiExplanation = window.queryAI ? window.queryAI(q.q) : '';
-            fb.innerHTML = `✗ Incorrect. Correct answer: ${ansText}<br>${aiExplanation}`;
+            if (typeof q.a === 'number' && q.t !== 'mc') ansText = q.a; // Fallback for SA numbers
+            fb.innerText = `✗ Incorrect. Correct answer: ${ansText}`;
             fb.classList.add('text-rose-700', 'bg-rose-100');
             box.classList.replace('border-slate-200', 'border-rose-300');
             box.classList.add('bg-rose-50/30');
-            
-            // Extract topic from AI explanation (naive regex)
-            const topicMatch = aiExplanation.match(/AI Tutor: (.*?)</);
-            if (topicMatch && !missedTopics.includes(topicMatch[1])) {
-              missedTopics.push(topicMatch[1]);
-            }
           }
         }
       });
@@ -1641,16 +1763,7 @@
       if(sb) {
         sb.classList.remove('hidden');
         sb.innerHTML = `You scored <span class="font-black text-indigo-700 text-2xl mx-1">${score}</span> out of 10!`;
-        if (score < 10) {
-          let topicsHtml = missedTopics.map(t => `<span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded font-bold">${t}</span>`).join(' ');
-          sb.innerHTML += `<div class="mt-4 p-4 bg-indigo-50 border border-indigo-200 rounded-lg text-sm text-indigo-900">
-            <strong><i class="fa-solid fa-brain"></i> AI Mastery Summary:</strong> You should review the explanations above and focus your studies on the following topics:<br><div class="mt-2 flex gap-2 flex-wrap">${topicsHtml}</div></div>`;
-        } else {
-          sb.innerHTML += `<div class="mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-sm text-emerald-900">
-            <strong><i class="fa-solid fa-trophy"></i> Mastered!</strong> Perfect score. You are an orbital mechanics expert.</div>`;
-        }
       }
-      if(window.MathJax) { MathJax.typesetPromise(); }
     }
 
     // --- 8. CHEAT SHEET UTILITIES (DOWNLOAD) ---
@@ -1687,7 +1800,6 @@
       URL.revokeObjectURL(url);
     }
 
-    // Main download handler for entire file
     const btnDownload = document.getElementById('btnDownload');
     if (btnDownload) {
       btnDownload.addEventListener('click', () => {
@@ -1707,38 +1819,6 @@
     drawKeplerGraph();
     animate(); 
     updateConicSection();
-    initQuiz();
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const articles = document.querySelectorAll("article[id]");
-      const navLinks = document.querySelectorAll("aside nav a");
-
-      const observerOptions = {
-        root: null,
-        rootMargin: "-20% 0px -60% 0px",
-        threshold: 0
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            navLinks.forEach((link) => {
-              link.classList.remove("font-bold", "text-indigo-600", "bg-indigo-50");
-              link.classList.add("text-slate-600", "hover:text-brand-600", "hover:bg-white");
-              if (link.getAttribute("href") === "#" + entry.target.id) {
-                link.classList.remove("text-slate-600", "hover:text-brand-600", "hover:bg-white");
-                link.classList.add("font-bold", "text-indigo-600", "bg-indigo-50");
-              }
-            });
-          }
-        });
-      }, observerOptions);
-
-      articles.forEach((article) => {
-        observer.observe(article);
-      });
-    });
   </script>
 </body>
 </html>

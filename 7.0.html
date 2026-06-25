@@ -40,6 +40,10 @@
                 font-family: 'JetBrains Mono', monospace;
             }
 
+            .hidden {
+                display: none !important;
+            }
+
             ::-webkit-scrollbar {
                 width: 5px;
                 height: 5px;
@@ -295,12 +299,12 @@
         <script src="https://unpkg.com/compromise"></script>
         <!-- Real Tabbed Interface and Responsive Scroll System -->
         <style>
-            @media (min-width: 1024px) and (min-height: 650px) {
-                body {
-                    height: 100vh !important;
-                    height: 100dvh !important;
-                    overflow: hidden !important;
-                }
+            /* Universal Scrolling System */
+            body {
+                height: 100vh !important;
+                height: 100dvh !important;
+                overflow: hidden !important;
+            }
 
                 main {
                     height: 0 !important;
@@ -357,7 +361,6 @@
                     padding-top: 0.75rem !important;
                     padding-bottom: 0.75rem !important;
                 }
-            }
 
             /* Settings Modal Scrollable Layout for Zooming */
             #settings-modal>div {
@@ -1501,27 +1504,27 @@
                     <div class="grid grid-cols-3 gap-3 my-4">
                         <button onclick="playRPS('R')"
                             class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 backdrop-blur-xl dark:backdrop-blur-md dark:bg-slate-900/60 hover:border-indigo-500/50 hover:bg-slate-100/40 dark:hover:bg-slate-800/40 text-center transition group"><span
-                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">鉁?/span><span
+                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">✊</span><span
                                 class="text-[10px] font-bold text-slate-600 dark:text-slate-300">Rock</span></button>
                         <button onclick="playRPS('P')"
                             class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 backdrop-blur-xl dark:backdrop-blur-md dark:bg-slate-900/60 hover:border-indigo-500/50 hover:bg-slate-100/40 dark:hover:bg-slate-800/40 text-center transition group"><span
-                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">鉁?/span><span
+                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">✋</span><span
                                 class="text-[10px] font-bold text-slate-600 dark:text-slate-300">Paper</span></button>
                         <button onclick="playRPS('S')"
                             class="p-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 backdrop-blur-xl dark:backdrop-blur-md dark:bg-slate-900/60 hover:border-indigo-500/50 hover:bg-slate-100/40 dark:hover:bg-slate-800/40 text-center transition group"><span
-                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">鉁岋笍</span><span
+                                class="text-2xl block mb-1 group-hover:scale-110 transition duration-150">✌️</span><span
                                 class="text-[10px] font-bold text-slate-600 dark:text-slate-300">Scissors</span></button>
                     </div>
                     <div
                         class="p-3 bg-white/40 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-around text-center text-xs">
                         <div><span class="text-[10px] uppercase text-slate-400 dark:text-slate-500 tracking-wider">You
                                 Played</span>
-                            <div id="rps-player-choice" class="text-2xl my-1">鉃?/div>
+                            <div id="rps-player-choice" class="text-2xl my-1">❓</div>
                         </div>
                         <div class="font-extrabold text-slate-600">VS</div>
                         <div><span class="text-[10px] uppercase text-slate-400 dark:text-slate-500 tracking-wider">AI
                                 Counter</span>
-                            <div id="rps-ai-choice" class="text-2xl my-1">鉃?/div>
+                            <div id="rps-ai-choice" class="text-2xl my-1">❓</div>
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-slate-200/60 dark:border-slate-800/60">
@@ -1531,24 +1534,24 @@
                         <div class="grid grid-cols-3 gap-2 text-[11px]">
                             <div
                                 class="p-2.5 bg-white/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-850 rounded-lg">
-                                <div class="font-semibold text-indigo-600 dark:text-indigo-300 mb-1.5">If last was 鉁?
+                                <div class="font-semibold text-indigo-600 dark:text-indigo-300 mb-1.5">If last was ✊:
                                 </div>
                                 <div class="space-y-1.5">
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✊ Next:</span><span
                                             id="prob-R-R" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-R-R" class="bg-indigo-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✋ Next:</span><span
                                             id="prob-R-P" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-R-P" class="bg-indigo-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁岋笍 Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✌️ Next:</span><span
                                             id="prob-R-S" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
@@ -1559,23 +1562,23 @@
                             </div>
                             <div
                                 class="p-2.5 bg-white/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-850 rounded-lg">
-                                <div class="font-semibold text-violet-300 mb-1.5">If last was 鉁?</div>
+                                <div class="font-semibold text-violet-300 mb-1.5">If last was ✋:</div>
                                 <div class="space-y-1.5">
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✊ Next:</span><span
                                             id="prob-P-R" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-P-R" class="bg-violet-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✋ Next:</span><span
                                             id="prob-P-P" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-P-P" class="bg-violet-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁岋笍 Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✌️ Next:</span><span
                                             id="prob-P-S" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
@@ -1586,23 +1589,23 @@
                             </div>
                             <div
                                 class="p-2.5 bg-white/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-850 rounded-lg">
-                                <div class="font-semibold text-teal-600 dark:text-teal-300 mb-1.5">If last was 鉁岋笍:</div>
+                                <div class="font-semibold text-teal-600 dark:text-teal-300 mb-1.5">If last was ✌️:</div>
                                 <div class="space-y-1.5">
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✊ Next:</span><span
                                             id="prob-S-R" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-S-R" class="bg-teal-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁?Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✋ Next:</span><span
                                             id="prob-S-P" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
                                         <div id="bar-S-P" class="bg-teal-500 h-full transition-all duration-300"
                                             style="width: 33.3%"></div>
                                     </div>
-                                    <div class="flex justify-between text-[10px]"><span>鉁岋笍 Next:</span><span
+                                    <div class="flex justify-between text-[10px]"><span>✌️ Next:</span><span
                                             id="prob-S-S" class="font-mono text-white">33%</span></div>
                                     <div
                                         class="w-full bg-white shadow-sm dark:shadow-none dark:bg-slate-900 h-1 rounded-full overflow-hidden">
@@ -1672,31 +1675,6 @@
                             <div class="text-3xl mb-3">🌍</div>
                             <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Elliptical Orbits</h4>
                             <p class="text-xs text-slate-500 dark:text-slate-400">Master Kepler's laws, vis-viva equations, and orbital extremes.</p>
-                        </a>
-                        <a href="orbital_maneuvers_physics.html" target="_blank" class="block p-4 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500 hover:shadow-md transition bg-slate-50 dark:bg-slate-950">
-                            <div class="text-3xl mb-3">🚀</div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Orbital Maneuvers</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Calculate Hohmann transfers and delta-v requirements.</p>
-                        </a>
-                        <a href="rocket_equation_physics.html" target="_blank" class="block p-4 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500 hover:shadow-md transition bg-slate-50 dark:bg-slate-950">
-                            <div class="text-3xl mb-3">🔥</div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">The Rocket Equation</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Understand mass fractions and Tsiolkovsky's famous law.</p>
-                        </a>
-                        <a href="n_body_gravity_physics.html" target="_blank" class="block p-4 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500 hover:shadow-md transition bg-slate-50 dark:bg-slate-950">
-                            <div class="text-3xl mb-3">🌌</div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">N-Body Gravity</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Learn universal gravitation and explore chaotic multi-body systems.</p>
-                        </a>
-                        <a href="atmospheric_entry_physics.html" target="_blank" class="block p-4 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500 hover:shadow-md transition bg-slate-50 dark:bg-slate-950">
-                            <div class="text-3xl mb-3">☄️</div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Atmospheric Entry</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Analyze aerocapture physics, heating rates, and ballistic coefficients.</p>
-                        </a>
-                        <a href="interplanetary_trajectories.html" target="_blank" class="block p-4 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-indigo-500 hover:shadow-md transition bg-slate-50 dark:bg-slate-950">
-                            <div class="text-3xl mb-3">🪐</div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Interplanetary Trajectories</h4>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Map out patched conics and launch windows for deep space missions.</p>
                         </a>
                     </div>
                 </div>
