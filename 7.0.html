@@ -779,7 +779,7 @@
                                 <i class="fa-solid fa-wand-sparkles text-indigo-600 dark:text-indigo-400"></i> Nexus
                                 Compose Engine</h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5">Generates unique essays
-                                <em>and</em> original creative stories from structural libraries 鈥?never the same twice.
+                                <em>and</em> original creative stories from structural libraries — never the same twice.
                             </p>
                         </div>
 
@@ -791,8 +791,8 @@
                                 <select id="composer-mode" onchange="switchComposerMode()"
                                     class="w-full bg-white/80 dark:bg-slate-950/80 rounded-xl px-3.5 py-2.5 text-xs text-slate-700 dark:text-slate-200 focus:outline-none focus:border-indigo-500"
                                     style="border: 1px solid rgba(99,102,241,0.25); background: rgba(5,8,25,0.7);">
-                                    <option value="scholarly">馃搫 Academic Essay</option>
-                                    <option value="creative">鉁?Creative Fiction / Narrative</option>
+                                    <option value="scholarly">📜 Academic Essay</option>
+                                    <option value="creative">✨ Creative Fiction / Narrative</option>
                                 </select>
                             </div>
                             <div class="mt-2">
@@ -4485,7 +4485,7 @@
                 document.getElementById('rps-ties').innerText = tiesCount;
                 document.getElementById('rps-rate').innerText = `${Math.round((userWins / (userWins + aiWins + tiesCount)) * 100)}%`;
 
-                const emojiMap = { 'R': '鉁?, 'P': '鉁?, 'S': '鉁岋笍' };
+                const emojiMap = { 'R': '✊', 'P': '✋', 'S': '✌️' };
                 document.getElementById('rps-player-choice').innerText = emojiMap[userMove];
                 document.getElementById('rps-ai-choice').innerText = emojiMap[aiCounter];
 
@@ -4524,8 +4524,8 @@
                 document.getElementById('rps-ai').innerText = "0";
                 document.getElementById('rps-ties').innerText = "0";
                 document.getElementById('rps-rate').innerText = "0%";
-                document.getElementById('rps-player-choice').innerText = "鉃?;
-                document.getElementById('rps-ai-choice').innerText = "鉃?;
+                document.getElementById('rps-player-choice').innerText = "❓";
+                document.getElementById('rps-ai-choice').innerText = "❓";
                 updateMarkovMatrixUI();
                 saveState();
                 showToast("Matrix flushed.");
