@@ -175,7 +175,7 @@
             class="sticky top-0 z-50 px-4 py-4 md:px-8 border-b border-slate-900/60 bg-slate-950/65 backdrop-blur-md transition-all duration-300">
             <div class="max-w-7xl mx-auto flex items-center justify-between">
                 <!-- Logo -->
-                <a href="index.html" class="flex items-center gap-3 group">
+                <a href="about.html" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center shadow-lg shadow-teal-500/30 bg-white/10">
                         <img src="logo.png" alt="Anthocyan AI Logo" class="w-9 h-9 object-contain" />
                     </div>
@@ -199,6 +199,8 @@
                     <a href="#comparison"
                         class="hover:text-white hover:underline decoration-indigo-500 underline-offset-8 transition">The
                         Edge</a>
+                    <a href="lessons.html"
+                        class="hover:text-white hover:underline decoration-indigo-500 underline-offset-8 transition">Lessons Library</a>
                 </nav>
 
                 <!-- Action Button -->
@@ -229,6 +231,8 @@
                         class="fa-solid fa-shapes text-violet-400 mr-2"></i>Live Sandbox</a>
                 <a href="#comparison" onclick="toggleMobileMenu()" class="hover:text-white transition py-1"><i
                         class="fa-solid fa-chart-bar text-pink-400 mr-2"></i>The Edge</a>
+                <a href="lessons.html" onclick="toggleMobileMenu()" class="hover:text-white transition py-1"><i
+                        class="fa-solid fa-graduation-cap text-teal-400 mr-2"></i>Lessons Library</a>
                 <a href="7.0.html"
                     class="py-2.5 bg-indigo-600 text-white font-bold text-center rounded-xl transition hover:bg-indigo-500 shadow-lg shadow-indigo-600/20"><i
                         class="fa-solid fa-play mr-2"></i>Launch Anthocyan AI 7.0</a>
@@ -425,35 +429,43 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <a href="elliptical_orbits_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                <a href="lessons/elliptical_orbits_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
                     <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🌍</div>
                     <h4 class="font-bold text-white text-lg mb-2">Elliptical Orbits</h4>
                     <p class="text-sm text-slate-400">Master Kepler's laws, vis-viva equations, and orbital extremes with our local AI tutor.</p>
                 </a>
-                <a href="orbital_maneuvers_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🚀</div>
-                    <h4 class="font-bold text-white text-lg mb-2">Orbital Maneuvers</h4>
-                    <p class="text-sm text-slate-400">Calculate Hohmann transfers and explore the mathematics behind spacecraft delta-v requirements.</p>
+                <a href="lessons/quantum_mechanics_lesson.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">⚛️</div>
+                    <h4 class="font-bold text-white text-lg mb-2">Quantum Foundations</h4>
+                    <p class="text-sm text-slate-400">Learn wave-particle duality, double-slit interference, probability distributions, and core quantum state physics.</p>
                 </a>
-                <a href="rocket_equation_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🔥</div>
-                    <h4 class="font-bold text-white text-lg mb-2">The Rocket Equation</h4>
-                    <p class="text-sm text-slate-400">Understand mass fractions, specific impulse, and Tsiolkovsky's famous law.</p>
+                <a href="lessons/relativity_explorer_special_relativity_lesson.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">⏳</div>
+                    <h4 class="font-bold text-white text-lg mb-2">Relativity Explorer</h4>
+                    <p class="text-sm text-slate-400">Discover spacetime, time dilation, length contraction, and Lorentz transformations via interactive models.</p>
                 </a>
-                <a href="n_body_gravity_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🌌</div>
-                    <h4 class="font-bold text-white text-lg mb-2">N-Body Gravity</h4>
-                    <p class="text-sm text-slate-400">Learn universal gravitation and explore chaotic multi-body systems in our n-body simulator.</p>
+                <a href="lessons/electromagnetic_induction_masterclass.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">⚡</div>
+                    <h4 class="font-bold text-white text-lg mb-2">Electromagnetic Induction</h4>
+                    <p class="text-sm text-slate-400">Masterclass on Faraday's Law, Lenz's Law, magnetic flux, and induced currents in closed circuit coils.</p>
                 </a>
-                <a href="atmospheric_entry_physics.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">☄️</div>
-                    <h4 class="font-bold text-white text-lg mb-2">Atmospheric Entry</h4>
-                    <p class="text-sm text-slate-400">Analyze aerocapture physics, heating rates, and ballistic coefficients during reentry.</p>
+                <a href="lessons/fluid_dynamics_bernoulli.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🌊</div>
+                    <h4 class="font-bold text-white text-lg mb-2">Fluid Dynamics</h4>
+                    <p class="text-sm text-slate-400">Interactive guide modeling pressure differentials, fluid speed, continuity equations, and lift mechanics.</p>
                 </a>
-                <a href="interplanetary_trajectories.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
-                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🪐</div>
-                    <h4 class="font-bold text-white text-lg mb-2">Interplanetary Trajectories</h4>
-                    <p class="text-sm text-slate-400">Map out patched conics and launch windows for deep space missions across the solar system.</p>
+                <a href="lessons/interactive_guide_to_rotational_dynamics_angular_acceleration.html" class="block p-6 border border-slate-800 rounded-2xl bg-slate-950/50 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10 transition group">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition duration-300">🔄</div>
+                    <h4 class="font-bold text-white text-lg mb-2">Rotational Dynamics</h4>
+                    <p class="text-sm text-slate-400">Dive into angular velocity, rotational inertia, torque, and angular momentum equations with live plotting.</p>
+                </a>
+            </div>
+
+            <div class="text-center mt-12">
+                <a href="lessons.html" class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-xl transition shadow-lg shadow-indigo-600/20">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Open Full Lessons Library</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
                 </a>
             </div>
         </div>
