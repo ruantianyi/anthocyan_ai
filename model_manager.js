@@ -14,9 +14,16 @@ const STATE_KEY = 'anthocyan_local_models_state';
 class ModelManager {
     constructor() {
         this.state = this.loadState();
-        this.activeEngines = {}; // Store references to initializing engines
-        this.progressCallbacks = {}; // Store callbacks for UI updates
+        this.activeEngines = {};
+        this.progressCallbacks = {};
         this.autoResumeDownloads();
+        
+        // Save state to cookies as well for explicit cookie persistence requirement
+        this.syncToCookies();
+        
+        setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('modelManagerReady'));
+        }, 100);
     }
 
     loadState() {
@@ -28,7 +35,6 @@ class ModelManager {
                 console.error("Failed to parse model state", e);
             }
         }
-        // Initialize default state
         const initialState = {};
         for (const key in LOCAL_MODELS) {
             initialState[key] = { status: 'not-downloaded', progress: 0 };
@@ -38,10 +44,21 @@ class ModelManager {
 
     saveState() {
         localStorage.setItem(STATE_KEY, JSON.stringify(this.state));
+        this.syncToCookies();
+    }
+
+    syncToCookies() {
+        try {
+            const jsonStr = JSON.stringify(this.state);
+            // Store cookie with 1 year expiration
+            document.cookie = `anthocyan_models_state=${encodeURIComponent(jsonStr)}; max-age=31536000; path=/; SameSite=Strict`;
+        } catch(e) {
+            console.warn("Could not save to cookies", e);
+        }
     }
 
     getState(modelKey) {
-        return this.state[modelKey];
+        return this.state[modelKey] || { status: 'not-downloaded', progress: 0 };
     }
 
     onProgress(modelKey, callback) {
@@ -50,14 +67,13 @@ class ModelManager {
 
     updateProgress(modelKey, progressEvent) {
         if (this.state[modelKey].status === 'paused') {
-            // Ignore progress if paused
             return;
         }
         
         const percentage = Math.round(progressEvent.progress * 100);
         this.state[modelKey].progress = percentage;
         
-        if (percentage >= 100 && progressEvent.text.includes("Finish")) {
+        if (percentage >= 100 && (progressEvent.text?.includes("Finish") || progressEvent.text?.includes("100%") || percentage === 100)) {
              this.state[modelKey].status = 'downloaded';
         } else if (this.state[modelKey].status !== 'downloaded') {
              this.state[modelKey].status = 'downloading';
@@ -95,7 +111,6 @@ class ModelManager {
                 }
             );
             
-            // If it completed without being paused
             if (this.state[modelKey].status !== 'paused') {
                 this.state[modelKey].status = 'downloaded';
                 this.state[modelKey].progress = 100;
@@ -123,14 +138,11 @@ class ModelManager {
             if (this.progressCallbacks[modelKey]) {
                 this.progressCallbacks[modelKey](this.state[modelKey]);
             }
-            // Note: WebLLM's fetch might still run in the background for the current chunk,
-            // but we ignore its progress callbacks and it won't auto-resume on reload.
         }
     }
 
     async deleteModel(modelKey) {
         const modelId = LOCAL_MODELS[modelKey].id;
-        // Reset state
         this.state[modelKey] = { status: 'not-downloaded', progress: 0 };
         this.saveState();
         
@@ -138,7 +150,6 @@ class ModelManager {
             this.progressCallbacks[modelKey](this.state[modelKey]);
         }
         
-        // Attempt to clear from Cache API
         try {
             const cacheKeys = await caches.keys();
             for (const key of cacheKeys) {
@@ -160,12 +171,10 @@ class ModelManager {
     autoResumeDownloads() {
         for (const key in this.state) {
             if (this.state[key].status === 'downloading') {
-                // Resume in background
                 this.triggerWebLLMDownload(key);
             }
         }
         
-        // Resume when connectivity is restored
         window.addEventListener('online', () => {
             console.log('Network connected. Resuming downloads...');
             for (const key in this.state) {
@@ -177,21 +186,17 @@ class ModelManager {
     }
 
     getBestTextModel() {
-        // Priority: medium-text, then potato-text
         const textModels = Object.entries(LOCAL_MODELS)
             .filter(([k, v]) => v.type === 'text')
             .map(([k, v]) => k);
             
-        // Check if medium-text is downloaded
         if (this.state['medium-text']?.status === 'downloaded') {
             return 'medium-text';
         }
-        // Check if potato-text is downloaded
         if (this.state['potato-text']?.status === 'downloaded') {
             return 'potato-text';
         }
         
-        // Fallback to any downloaded text model
         for (const key of textModels) {
             if (this.state[key]?.status === 'downloaded') {
                 return key;
@@ -202,6 +207,5 @@ class ModelManager {
     }
 }
 
-// Make it a singleton attached to window for easy global access
 window.modelManager = new ModelManager();
 window.webllm = webllm;
