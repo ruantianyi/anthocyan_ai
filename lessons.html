@@ -558,7 +558,7 @@
 
                 const bestModelKey = window.modelManager ? window.modelManager.getBestTextModel() : null;
                 if (!bestModelKey) {
-                    alert("Please go to the 7.0 Workspace and download an AI model first before using AI Lesson Recommendations.");
+                    document.getElementById('downloadModal').classList.remove('hidden');
                     return;
                 }
 
